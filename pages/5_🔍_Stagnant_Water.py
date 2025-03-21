@@ -1,10 +1,17 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
+# Define class labels
+class_labels = {
+    0: "No Stagnant Water",
+    1: "Stagnant Water - Low Risk",
+    2: "Stagnant Water - High Risk"
+}
+
 # Teachable Machine TensorFlow.js Integration with File Upload
-def teachable_machine_component():
+def teachable_machine_component(class_labels):
     components.html(
-        """
+        f"""
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
         <input type="file" id="file-input" accept="image/*" />
         <div id="image-container"></div>
@@ -13,6 +20,9 @@ def teachable_machine_component():
         <script type="text/javascript">
             // Teachable Machine model URL
             const modelURL = "https://teachablemachine.withgoogle.com/models/jtmut1SnG/model.json";
+
+            // Class labels
+            const classLabels = {class_labels};
 
             let model;
 
@@ -79,15 +89,18 @@ def teachable_machine_component():
                     const predictedClass = tf.argMax(prediction, 1).dataSync()[0];
                     const confidence = tf.max(prediction).dataSync()[0];
 
+                    // Get the class label
+                    const className = classLabels[predictedClass] || "Unknown Class";
+
                     // Log the results
-                    console.log(`Predicted Class: ${predictedClass}, Confidence: ${confidence}`);
+                    console.log(`Predicted Class: ${className}, Confidence: ${confidence}`);
 
                     // Display the results
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = `
                         <div style="margin-bottom: 10px;">
                             <span style="font-weight: bold; color: var(--text-color);">Predicted Class:</span>
-                            <span style="color: ${confidence > 0.5 ? "red" : "green"};">${predictedClass}</span>
+                            <span style="color: ${confidence > 0.5 ? "red" : "green"};">${className}</span>
                         </div>
                         <div style="margin-bottom: 10px;">
                             <span style="font-weight: bold; color: var(--text-color);">Confidence:</span>
@@ -98,7 +111,7 @@ def teachable_machine_component():
                     // Send results back to Streamlit
                     if (typeof Streamlit !== "undefined" && Streamlit.setComponentValue) {
                         Streamlit.setComponentValue({
-                            predicted_class: predictedClass,
+                            predicted_class: className,
                             confidence: confidence,
                             has_stagnant_water: confidence > 0.5
                         });
@@ -149,7 +162,7 @@ def main():
 
     # Add Teachable Machine Component
     st.subheader("Teachable Machine Model")
-    result = teachable_machine_component()
+    result = teachable_machine_component(class_labels)
 
     # Display predictions dynamically
     if result:
