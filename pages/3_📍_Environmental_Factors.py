@@ -20,11 +20,22 @@ def predict_risk(model, input_data):
 # Streamlit page
 def main():
     st.title("📊 Predictive Analytics Using Environmental Data")
-    st.write("Use rainfall, temperature, humidity, and vegetation data to predict mosquito breeding conditions and dengue risk.")
+    st.write("Use rainfall, temperature, humidity, and vegetation data to predict mosquito breeding conditions and dengue risk for specific areas in Lahore.")
 
     # Placeholder for model path
     model_path = "model/environmental_model.h5"  # Replace with the path to your model later
     model = load_model(model_path)
+
+    # Location selection (Lahore neighborhoods)
+    st.subheader("Select Location in Lahore")
+    location = st.selectbox(
+        "Choose a neighborhood in Lahore",
+        [
+            "Gulberg", "Defence", "Model Town", "Johar Town", "Faisal Town",
+            "Cantt", "Iqbal Town", "Garden Town", "Wapda Town", "DHA"
+        ],  # Add more neighborhoods as needed
+        index=0  # Default to Gulberg
+    )
 
     # Input fields for environmental data
     st.subheader("Enter Environmental Data")
@@ -55,6 +66,7 @@ def main():
 
         # Store results in session state
         result = {
+            "location": location,
             "rainfall": rainfall,
             "temperature": temperature,
             "humidity": humidity,
@@ -70,6 +82,7 @@ def main():
         st.write("### Latest Predictions")
         for i, result in enumerate(st.session_state.last_predictions[::-1]):  # Show latest first
             st.write(f"#### Prediction {i + 1}")
+            st.write(f"- **Location**: {result['location']}, Lahore")
             st.write(f"- **Rainfall**: {result['rainfall']} mm")
             st.write(f"- **Temperature**: {result['temperature']} °C")
             st.write(f"- **Humidity**: {result['humidity']}%")
