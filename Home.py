@@ -62,12 +62,6 @@ st.header("Explore the App")
 # Add custom CSS for card styling
 st.markdown("""
 <style>
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;  /* Space between cards */
-    justify-content: space-between;
-}
 .card {
     border: 1px solid #e1e4e8;
     border-radius: 10px;
@@ -75,7 +69,6 @@ st.markdown("""
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: transform 0.2s, box-shadow 0.2s;
-    flex: 1 1 calc(33.333% - 20px);  /* Three cards per row with spacing */
     display: flex;
     flex-direction: column;
     justify-content: center;  /* Center content vertically */
@@ -98,22 +91,36 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Create a container for the cards
-st.markdown('<div class="card-container">', unsafe_allow_html=True)
+# Create two rows of three columns each
+row1_col1, row1_col2, row1_col3 = st.columns(3)  # First row
+row2_col1, row2_col2, row2_col3 = st.columns(3)  # Second row
 
-# Loop through pages and create cards
-for page in pages:
-    st.markdown(f"""
+# Function to create a card
+def create_card(page):
+    return f"""
     <a href="{page['path']}" target="_self" style="text-decoration: none; color: inherit;">
         <div class="card">
             <h3>{page['title']}</h3>
             <p>{page['description']}</p>
         </div>
     </a>
-    """, unsafe_allow_html=True)
+    """
 
-# Close the container
-st.markdown('</div>', unsafe_allow_html=True)
+# Add cards to the first row
+with row1_col1:
+    st.markdown(create_card(pages[0]), unsafe_allow_html=True)
+with row1_col2:
+    st.markdown(create_card(pages[1]), unsafe_allow_html=True)
+with row1_col3:
+    st.markdown(create_card(pages[2]), unsafe_allow_html=True)
+
+# Add cards to the second row
+with row2_col1:
+    st.markdown(create_card(pages[3]), unsafe_allow_html=True)
+with row2_col2:
+    st.markdown(create_card(pages[4]), unsafe_allow_html=True)
+with row2_col3:
+    st.markdown(create_card(pages[5]), unsafe_allow_html=True)
 
 # Custom CSS for key feature boxes
 st.markdown("""
