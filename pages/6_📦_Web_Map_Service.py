@@ -16,7 +16,7 @@ col1, col2 = st.columns([2, 1])
 
 # Preventive Tips Section
 with col1:
-    st.header("🦟 Preventive Measures")
+    st.header("Preventive Measures")
     st.write("Follow these essential measures to reduce the risk of dengue:")
     tips = [
         "Eliminate stagnant water around your home.",
