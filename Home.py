@@ -27,19 +27,19 @@ pages = [
     {
         "title": "Dengue Risk Map",
         "path": "/Dengue_Risk_Map",
-        "thumbnail": "images/maps_12785933(1).png",  # Local image path
+        "thumbnail": "images/dengue_risk_map.png",  # Local image path
         "description": "Analyze dengue risk with a heatmap."
     },
     {
         "title": "Fumigation Progress",
         "path": "/Fumigation_Progress",
-        "thumbnail": "images/business_15843486.png",  # Local image path
+        "thumbnail": "images/fumigation_progress.png",  # Local image path
         "description": "Displays progress of fumigation by government staff."
     },
     {
         "title": "Reported Cases",
         "path": "/Reported_Cases",
-        "thumbnail": "images/megaphone_6808568.png",  # Local image path
+        "thumbnail": "images/reported_cases.png",  # Local image path
         "description": "Visualize historically reported cases."
     },
     {
