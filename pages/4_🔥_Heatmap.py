@@ -16,7 +16,7 @@ The default view displays the comprehensive risk score, which combines multiple 
 )
 
 # Load data
-data = pd.read_csv('dengue_data.csv')
+data = pd.read_csv('https://raw.githubusercontent.com/QamarAyesha/test-data/refs/heads/main/lahore_dengue_data.csv')
 
 # Dropdown for factor selection
 factor_mapping = {
