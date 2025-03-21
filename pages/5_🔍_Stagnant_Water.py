@@ -113,7 +113,7 @@ def teachable_machine_component():
                 }
             }
         </style>
-        """,
+        ",
         height=600,
     )
 
@@ -135,6 +135,10 @@ def main():
     # Add Teachable Machine Component
     st.subheader("Teachable Machine Model")
     teachable_machine_component()
+
+    # Results Section
+    st.subheader("Results")
+    st.write("After uploading an image, the results including the file name, selected city, predicted class, confidence, and dengue risk score will be displayed here.")
 
 if __name__ == "__main__":
     main()
