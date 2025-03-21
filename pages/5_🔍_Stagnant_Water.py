@@ -2,6 +2,23 @@ import streamlit as st
 import numpy as np
 from PIL import Image
 
+# Initialize session state to store results
+if "last_results" not in st.session_state:
+    st.session_state.last_results = [
+        {
+            "file_name": "default_image_1.jpg",
+            "predicted_class": "No Stagnant Water",
+            "confidence": 0.85,
+            "risk_score": 15
+        },
+        {
+            "file_name": "default_image_2.jpg",
+            "predicted_class": "Stagnant Water",
+            "confidence": 0.92,
+            "risk_score": 75
+        }
+    ]
+
 # Placeholder for model loading
 def load_model(model_path):
     st.warning("Model loading is currently disabled. This is a placeholder.")
@@ -20,36 +37,63 @@ def predict(model, image):
 # Streamlit page
 def main():
     st.title("🌍 Satellite Image Analysis for Dengue Risk")
-    st.write("Upload or select a satellite image to detect stagnant water spots.")
+    st.write("Upload or select satellite images to detect stagnant water spots.")
 
     # Placeholder for model path
     model_path = "model/model.json"  # Replace with the path to your model later
     model = load_model(model_path)
 
-    # File uploader for satellite images
-    uploaded_file = st.file_uploader("Upload a satellite image...", type=["jpg", "jpeg", "png"])
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Uploaded Satellite Image", use_column_width=True)
+    # File uploader for multiple satellite images
+    uploaded_files = st.file_uploader(
+        "Upload satellite images...", 
+        type=["jpg", "jpeg", "png"], 
+        accept_multiple_files=True
+    )
 
-        # Preprocess and predict (placeholder)
-        processed_image = preprocess_image(image)
-        predictions = predict(model, processed_image)
-        st.write("Model Predictions (placeholder):", predictions)
+    # Process uploaded files
+    if uploaded_files:
+        results = []
+        for uploaded_file in uploaded_files:
+            image = Image.open(uploaded_file)
+            st.image(image, caption=f"Uploaded Image: {uploaded_file.name}", use_column_width=True)
 
-        # Display the result (placeholder)
-        class_names = ["No Stagnant Water", "Stagnant Water"]  # Replace with your class names
-        predicted_class = class_names[np.argmax(predictions)]
-        confidence = np.max(predictions)
-        st.write(f"🎉 Predicted Class (placeholder): **{predicted_class}** with {confidence:.2f} confidence!")
+            # Preprocess and predict (placeholder)
+            processed_image = preprocess_image(image)
+            predictions = predict(model, processed_image)
 
-        # Add a warning for stagnant water detection (placeholder)
-        if predicted_class == "Stagnant Water":
+            # Display the result (placeholder)
+            class_names = ["No Stagnant Water", "Stagnant Water"]  # Replace with your class names
+            predicted_class = class_names[np.argmax(predictions)]
+            confidence = np.max(predictions)
+            risk_score = calculate_risk_score(predictions)
+
+            # Store results
+            results.append({
+                "file_name": uploaded_file.name,
+                "predicted_class": predicted_class,
+                "confidence": confidence,
+                "risk_score": risk_score
+            })
+
+            # Display results for the current file
+            st.write(f"🎉 Predicted Class (placeholder): **{predicted_class}** with {confidence:.2f} confidence!")
+            st.write(f"🦟 Dengue Risk Score (placeholder): **{risk_score}**")
+            if predicted_class == "Stagnant Water":
+                st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
+            st.write("---")
+
+        # Save results to session state
+        st.session_state.last_results = results
+
+    # Display last results or default results if no new files are uploaded
+    st.subheader("Last Results")
+    for result in st.session_state.last_results:
+        st.write(f"📄 **File Name**: {result['file_name']}")
+        st.write(f"🎉 Predicted Class (placeholder): **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
+        st.write(f"🦟 Dengue Risk Score (placeholder): **{result['risk_score']}**")
+        if result["predicted_class"] == "Stagnant Water":
             st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
-
-        # Calculate and display risk score (placeholder)
-        risk_score = calculate_risk_score(predictions)
-        st.write(f"🦟 Dengue Risk Score (placeholder): **{risk_score}**")
+        st.write("---")
 
 # Placeholder for risk score calculation
 def calculate_risk_score(predictions, threshold=0.5):
