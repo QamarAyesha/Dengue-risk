@@ -86,7 +86,7 @@ st.markdown("""
 .card p {
     font-size: 0.9rem;
     color: #555;
-    margin: 0;
+    margin: 10px;
 }
 </style>
 """, unsafe_allow_html=True)
