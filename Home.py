@@ -73,7 +73,7 @@ st.markdown("""
     flex-direction: column;
     justify-content: center;  /* Center content vertically */
     align-items: center;  /* Center content horizontally */
-    min-height: 150px;  /* Ensure all cards have the same height */
+    min-height: 175px;  /* Ensure all cards have the same height */
 }
 .card:hover {
     transform: translateY(-5px);
