@@ -11,7 +11,7 @@ st.markdown(
     """
 This map visualizes dengue risk levels across Lahore, highlighting areas with varying degrees of risk.
 You can explore the impact of specific factors—such as weather conditions, stagnant water coverage, or historical dengue cases—on the overall risk assessment.
-The default view displays the comprehensive risk score, which combines multiple factors to provide a holistic understanding of dengue risk in the region."
+The default view displays the comprehensive risk score, which combines multiple factors to provide a holistic understanding of dengue risk in the region.
     """
 )
 
@@ -19,13 +19,14 @@ The default view displays the comprehensive risk score, which combines multiple 
 data = pd.read_csv('dengue_data.csv')
 
 # Dropdown for factor selection
-factor_options = [
+factor_mapping = {
     'Overall Risk': 'Total_Risk_Score',
     'Weather': 'Weather_Risk_Score',
     'Stagnant water': 'Water_Coverage_Risk_Score',
     'Past Cases': 'Past_Cases_Risk_Score'
-]
-factor = st.selectbox("Select Risk Factor to Display", factor_options, index=0)
+}
+factor_label = st.selectbox("Select Risk Factor to Display", list(factor_mapping.keys()), index=0)
+factor = factor_mapping[factor_label]
 
 # Create map
 m = leafmap.Map(center=[31.5204, 74.3587], zoom=12)
@@ -56,4 +57,5 @@ st.markdown(
 )
 
 st.write("Data Source: Dengue Surveillance Data")
+
 
