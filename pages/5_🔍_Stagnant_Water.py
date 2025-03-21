@@ -3,25 +3,6 @@ import streamlit.components.v1 as components
 import numpy as np
 from PIL import Image
 
-# Initialize session state to store results
-if "last_results" not in st.session_state:
-    st.session_state.last_results = [
-        {
-            "file_name": "default_image_1.jpg",
-            "city": "Lahore",  
-            "predicted_class": "No Stagnant Water",
-            "confidence": 0.85,
-            "risk_score": 15
-        },
-        {
-            "file_name": "default_image_2.jpg",
-            "city": "Karachi",  
-            "predicted_class": "Stagnant Water",
-            "confidence": 0.92,
-            "risk_score": 75
-        }
-    ]
-
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component():
     components.html(
@@ -150,14 +131,14 @@ def teachable_machine_component():
         height=600,
     )
 
-# Calculate risk score
-def calculate_risk_score(predictions, threshold=0.5):
-    """Calculate a dengue risk score based on predictions."""
-    # Count the number of stagnant water spots (placeholder)
-    stagnant_spots = np.sum(predictions > threshold)
+# Calculate normalized risk score (between 0 and 1)
+def calculate_risk_score(predictions, stagnant_class_index=0):
+    """Calculate a normalized dengue risk score based on predictions."""
+    # Get the probability of the "Stagnant Water" class
+    stagnant_water_probability = predictions[stagnant_class_index]
     
-    # Calculate risk score (example formula)
-    risk_score = stagnant_spots * 10  # Adjust based on your requirements
+    # Normalize the risk score to be between 0 and 1
+    risk_score = stagnant_water_probability  # Already between 0 and 1
     return risk_score
 
 # Streamlit App
@@ -178,13 +159,14 @@ def main():
     st.subheader("Teachable Machine Model")
     teachable_machine_component()
 
-    # Display last results or default results if no new files are uploaded
-    st.subheader("Last Results")
-    for result in st.session_state.last_results:
+    # Results Section
+    st.subheader("Results")
+    if "results" in st.session_state:
+        result = st.session_state.results
         st.write(f"📄 **File Name**: {result['file_name']}")
-        st.write(f"📍 **City**: {result['city']}")  # Updated to use city
+        st.write(f"📍 **City**: {result['city']}")
         st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
-        st.write(f"🦟 Dengue Risk Score: **{result['risk_score']}**")
+        st.write(f"🦟 Dengue Risk Score: **{result['risk_score']:.2f}**")
         if result["predicted_class"] == "Stagnant Water":
             st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
         st.write("---")
