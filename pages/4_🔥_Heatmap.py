@@ -5,7 +5,7 @@ import numpy as np
 
 st.set_page_config(layout="wide")
 
-st.title("Dengue Risk Heatmap for Lahore")
+st.title("Dengue Risk Heatmap")
 
 st.markdown(
     """
