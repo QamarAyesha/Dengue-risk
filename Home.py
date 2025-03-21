@@ -89,7 +89,7 @@ st.markdown("""
     margin: 0;
 }
 .row-spacing {
-    margin-bottom: 60px;  /* Increase space between rows */
+    margin-bottom: 80px;  /* Increase space between rows */
 }
 </style>
 """, unsafe_allow_html=True)
@@ -135,7 +135,7 @@ st.markdown("""
     background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
     padding: 20px;
     border-radius: 10px;
-    min-height: 200px;  /* Ensures each box has the same height */
+    min-height: 250px;  /* Ensures each box has the same height */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
