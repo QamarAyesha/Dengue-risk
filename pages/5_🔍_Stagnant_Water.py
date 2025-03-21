@@ -3,25 +3,6 @@ import streamlit.components.v1 as components
 import numpy as np
 from PIL import Image
 
-# Initialize session state to store results
-if "last_results" not in st.session_state:
-    st.session_state.last_results = [
-        {
-            "file_name": "default_image_1.jpg",
-            "city": "Lahore",  
-            "predicted_class": "No Stagnant Water",
-            "confidence": 0.85,
-            "risk_score": 15
-        },
-        {
-            "file_name": "default_image_2.jpg",
-            "city": "Karachi",  
-            "predicted_class": "Stagnant Water",
-            "confidence": 0.92,
-            "risk_score": 75
-        }
-    ]
-
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component():
     components.html(
@@ -87,15 +68,18 @@ def teachable_machine_component():
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = ""; // Clear previous results
 
+                    let riskScore = 0;
                     for (let i = 0; i < maxPredictions; i++) {
                         const className = prediction[i].className;
-                        const probability = prediction[i].probability.toFixed(2);
-
-                        // Create a result div
+                        const probability = parseFloat(prediction[i].probability.toFixed(2));
+                        
+                        if (className === "Stagnant Water") {
+                            riskScore = probability; // Risk score is the probability itself (always <1)
+                        }
+                        
                         const resultDiv = document.createElement("div");
                         resultDiv.style.marginBottom = "10px";
 
-                        // Add class name and probability
                         const classText = document.createElement("span");
                         classText.innerText = `${className}: `;
                         classText.style.fontWeight = "bold";
@@ -107,25 +91,15 @@ def teachable_machine_component():
 
                         resultDiv.appendChild(classText);
                         resultDiv.appendChild(probabilityText);
-
-                        // Highlight high-risk predictions
-                        if (className === "Stagnant Water" && probability > 0.5) {
-                            resultDiv.style.backgroundColor = "var(--background-color)";
-                            resultDiv.style.color = "var(--text-color)";
-                            resultDiv.style.padding = "5px";
-                            resultDiv.style.borderRadius = "5px";
-                            resultDiv.style.border = "1px solid red";
-                        } else {
-                            resultDiv.style.backgroundColor = "var(--background-color)";
-                            resultDiv.style.color = "var(--text-color)";
-                            resultDiv.style.padding = "5px";
-                            resultDiv.style.borderRadius = "5px";
-                            resultDiv.style.border = "1px solid green";
-                        }
-
                         labelContainer.appendChild(resultDiv);
                     }
-                    console.log("Predictions completed!");
+
+                    // Display risk score
+                    const riskDiv = document.createElement("div");
+                    riskDiv.innerText = `🦟 Dengue Risk Score: ${riskScore.toFixed(2)}`;
+                    riskDiv.style.fontWeight = "bold";
+                    riskDiv.style.marginTop = "10px";
+                    labelContainer.appendChild(riskDiv);
                 } catch (error) {
                     console.error("Error making predictions:", error);
                 }
@@ -150,21 +124,11 @@ def teachable_machine_component():
         height=600,
     )
 
-# Calculate risk score
-def calculate_risk_score(predictions, threshold=0.5):
-    """Calculate a dengue risk score based on predictions."""
-    # Count the number of stagnant water spots (placeholder)
-    stagnant_spots = np.sum(predictions > threshold)
-    
-    # Calculate risk score (example formula)
-    risk_score = stagnant_spots * 10  # Adjust based on your requirements
-    return risk_score
-
 # Streamlit App
 def main():
     st.set_page_config(page_title="Satellite Image Analysis for Dengue Risk", layout="wide")
     st.title("Satellite Image Analysis for Dengue Risk")
-    st.write("Upload satellite images to detect stagnant water spots.")
+    st.write("Upload satellite images to detect stagnant water spots and assess dengue risk.")
 
     # City selection
     st.subheader("Select City")
@@ -177,17 +141,6 @@ def main():
     # Add Teachable Machine Component
     st.subheader("Teachable Machine Model")
     teachable_machine_component()
-
-    # Display last results or default results if no new files are uploaded
-    st.subheader("Last Results")
-    for result in st.session_state.last_results:
-        st.write(f"📄 **File Name**: {result['file_name']}")
-        st.write(f"📍 **City**: {result['city']}")  # Updated to use city
-        st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
-        st.write(f"🦟 Dengue Risk Score: **{result['risk_score']}**")
-        if result["predicted_class"] == "Stagnant Water":
-            st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
-        st.write("---")
 
 if __name__ == "__main__":
     main()
