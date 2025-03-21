@@ -38,9 +38,9 @@ st.write("### Estimated Fumigation Progress Over Time")
 
 # Get the estimated completion days for the selected city
 estimated_completion_days = city_data['Estimated Completion (Days)'].values[0]
-initial_progress = city_data['Progress (%)'].values[0]
+initial_progress = city_data['Progress (%)'].values[0] / 100  # Normalize to [0, 1]
 
-# Now we create timeline data that doesn't exceed the Progress % value
+# Create timeline data
 timeline_data = pd.DataFrame({
     'Day': range(1, estimated_completion_days + 1),
     'Progress (%)': [initial_progress] * estimated_completion_days  # Keep progress constant
@@ -54,13 +54,15 @@ fig_timeline = px.line(
 )
 
 # Format the Y-axis to show percentage format
-fig_timeline.update_layout(yaxis=dict(tickformat=".0%"))
+fig_timeline.update_layout(
+    yaxis=dict(
+        tickformat=".0%",  # Show as percentages
+        range=[0, 1]  # Set Y-axis range to [0, 1] for percentages
+    )
+)
 
 # Display the timeline plot
 st.plotly_chart(fig_timeline, use_container_width=True)
-
-
-
 
 # Feedback Form
 st.write("### Provide Feedback")
