@@ -57,7 +57,16 @@ def teachable_machine_component():
                 // Wait for the image to load before making predictions
                 img.onload = async () => {
                     console.log("Image loaded, making predictions...");
-                    await predict(img);
+
+                    // Create a canvas element to ensure the image is in the correct format
+                    const canvas = document.createElement("canvas");
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext("2d");
+                    ctx.drawImage(img, 0, 0, img.width, img.height);
+
+                    // Pass the canvas to the predict function
+                    await predict(canvas);
                 };
             }
 
