@@ -110,8 +110,16 @@ def teachable_machine_component():
                         // Highlight high-risk predictions
                         if (className === "Stagnant Water" && probability > 0.5) {
                             resultDiv.style.backgroundColor = "#ffcccc"; // Light red background
+                            resultDiv.style.color = "#000000"; // Black text for better contrast
                             resultDiv.style.padding = "5px";
                             resultDiv.style.borderRadius = "5px";
+                            resultDiv.style.border = "1px solid #ff0000"; // Red border for emphasis
+                        } else {
+                            resultDiv.style.backgroundColor = "#e6ffe6"; // Light green background for non-stagnant water
+                            resultDiv.style.color = "#000000"; // Black text for better contrast
+                            resultDiv.style.padding = "5px";
+                            resultDiv.style.borderRadius = "5px";
+                            resultDiv.style.border = "1px solid #00ff00"; // Green border for emphasis
                         }
 
                         labelContainer.appendChild(resultDiv);
@@ -154,7 +162,7 @@ def main():
     )
 
     # Add Teachable Machine Component
-    st.subheader("Teachable Machine Model to Detect Water Stagnation in satellite image")
+    st.subheader("Teachable Machine Model")
     teachable_machine_component()
 
     # Display last results or default results if no new files are uploaded
