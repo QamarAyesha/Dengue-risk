@@ -16,17 +16,48 @@ col1, col2 = st.columns([2, 1])
 
 # Preventive Tips Section
 with col1:
-    st.header("Preventive Measures")
-    st.write("Follow these essential measures to reduce the risk of dengue:")
-    tips = [
-        "Eliminate stagnant water around your home.",
-        "Use mosquito repellents and wear protective clothing.",
-        "Install window and door screens to prevent mosquitoes from entering.",
-        "Participate in community clean-up campaigns.",
-        "Encourage fumigation and larvicide treatments in your neighborhood."
-    ]
-    for tip in tips:
-        st.write(f"✔️ {tip}")
+
+# Custom CSS to add a slightly darker translucent blue background
+st.markdown("""
+    <style>
+        .key-feature-box {
+            background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 200px;  /* Ensures each box has the same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Preventive Measures section with the same blue background
+st.header("Preventive Measures")
+st.write("Follow these essential measures to reduce the risk of dengue:")
+
+# Wrapping the tips in a div with the key-feature-box class
+st.markdown("""
+    <div class="key-feature-box">
+        <ul>
+            <li>Eliminate stagnant water around your home.</li>
+            <li>Use mosquito repellents and wear protective clothing.</li>
+            <li>Install window and door screens to prevent mosquitoes from entering.</li>
+            <li>Participate in community clean-up campaigns.</li>
+            <li>Encourage fumigation and larvicide treatments in your neighborhood.</li>
+        </ul>
+    </div>
+""", unsafe_allow_html=True)
+
 
 # symptom checkker
 st.header("🩺 Symptom Checker")
