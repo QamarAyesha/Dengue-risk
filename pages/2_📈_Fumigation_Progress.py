@@ -33,26 +33,20 @@ fig = px.scatter_mapbox(
 )
 st.plotly_chart(fig, use_container_width=True)
 
-# Progress Timeline with Corrected Scaling
+# Progress Timeline with Fixed Scaling
 st.write("### Estimated Fumigation Progress Over Time")
 
 # Get the estimated completion days for the selected city
 estimated_completion_days = city_data['Estimated Completion (Days)'].values[0]
 initial_progress = city_data['Progress (%)'].values[0]
 
-# Create timeline data that scales the progress linearly up to the initial progress
+# Now we create timeline data that doesn't exceed the Progress % value
 timeline_data = pd.DataFrame({
     'Day': range(1, estimated_completion_days + 1),
-    'Progress (%)': [
-        (i / estimated_completion_days) * initial_progress  # Scaling progress over the number of days
-        for i in range(1, estimated_completion_days + 1)
-    ]
+    'Progress (%)': [initial_progress] * estimated_completion_days  # Keep progress constant
 })
 
-# Ensure the final day has the correct progress percentage
-timeline_data['Progress (%)'] = timeline_data['Progress (%)'].clip(upper=initial_progress)
-
-# Create the line plot for the timeline
+# Plotting the timeline with fixed progress
 fig_timeline = px.line(
     timeline_data, x='Day', y='Progress (%)',
     title=f'Progress Timeline for {selected_city}',
@@ -64,6 +58,7 @@ fig_timeline.update_layout(yaxis=dict(tickformat=".0%"))
 
 # Display the timeline plot
 st.plotly_chart(fig_timeline, use_container_width=True)
+
 
 
 
