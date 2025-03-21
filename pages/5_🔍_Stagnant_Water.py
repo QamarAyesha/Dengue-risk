@@ -55,11 +55,11 @@ def teachable_machine_component():
 
                 // Make predictions
                 console.log("Making predictions...");
-                await predict(img);
+                await predict(img, file.name);
             }
 
             // Make predictions on the uploaded image
-            async function predict(image) {
+            async function predict(image, fileName) {
                 try {
                     console.log("Predicting...");
                     const prediction = await model.predict(image);
@@ -69,37 +69,30 @@ def teachable_machine_component():
                     labelContainer.innerHTML = ""; // Clear previous results
 
                     let riskScore = 0;
+                    let predictedClass = "Unknown";
+                    let confidence = 0;
+
                     for (let i = 0; i < maxPredictions; i++) {
                         const className = prediction[i].className;
                         const probability = parseFloat(prediction[i].probability.toFixed(2));
+
+                        if (probability > confidence) {
+                            predictedClass = className;
+                            confidence = probability;
+                        }
                         
                         if (className === "Stagnant Water") {
                             riskScore = probability; // Risk score is the probability itself (always <1)
                         }
-                        
-                        const resultDiv = document.createElement("div");
-                        resultDiv.style.marginBottom = "10px";
-
-                        const classText = document.createElement("span");
-                        classText.innerText = `${className}: `;
-                        classText.style.fontWeight = "bold";
-                        classText.style.color = "var(--text-color)";
-
-                        const probabilityText = document.createElement("span");
-                        probabilityText.innerText = `${probability}`;
-                        probabilityText.style.color = probability > 0.5 ? "red" : "green";
-
-                        resultDiv.appendChild(classText);
-                        resultDiv.appendChild(probabilityText);
-                        labelContainer.appendChild(resultDiv);
                     }
 
-                    // Display risk score
-                    const riskDiv = document.createElement("div");
-                    riskDiv.innerText = `🦟 Dengue Risk Score: ${riskScore.toFixed(2)}`;
-                    riskDiv.style.fontWeight = "bold";
-                    riskDiv.style.marginTop = "10px";
-                    labelContainer.appendChild(riskDiv);
+                    // Display full result
+                    labelContainer.innerHTML += `<div style='margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px;'>
+                        📄 <b>File Name:</b> ${fileName} <br>
+                        📍 <b>City:</b> ${document.getElementById("city-selector").value} <br>
+                        🎉 <b>Predicted Class:</b> ${predictedClass} with ${confidence.toFixed(2)} confidence! <br>
+                        🦟 <b>Dengue Risk Score:</b> ${riskScore.toFixed(2)}
+                    </div>`;
                 } catch (error) {
                     console.error("Error making predictions:", error);
                 }
@@ -135,7 +128,8 @@ def main():
     city = st.selectbox(
         "Choose a city",
         ["Lahore", "Karachi", "Islamabad", "Faisalabad", "Multan"],  # Major cities
-        index=0  # Default to Lahore
+        index=0,  # Default to Lahore
+        key="city-selector"
     )
 
     # Add Teachable Machine Component
