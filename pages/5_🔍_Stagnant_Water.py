@@ -54,9 +54,11 @@ def teachable_machine_component():
                 img.height = 200;
                 imageContainer.appendChild(img);
 
-                // Make predictions
-                console.log("Making predictions...");
-                await predict(img);
+                // Wait for the image to load before making predictions
+                img.onload = async () => {
+                    console.log("Image loaded, making predictions...");
+                    await predict(img);
+                };
             }
 
             // Make predictions on the uploaded image
