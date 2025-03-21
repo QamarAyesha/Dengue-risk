@@ -12,16 +12,15 @@ def teachable_machine_component():
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
         <script type="text/javascript">
-            const URL = "https://teachablemachine.withgoogle.com/models/jtmut1SnG/";
+            // Model URLs
+            const modelURL = "https://storage.googleapis.com/tm-model/jtmut1SnG/model.json";
+            const metadataURL = "https://storage.googleapis.com/tm-model/jtmut1SnG/metadata.json";
 
             let model, maxPredictions;
 
             // Load the model and metadata
             async function init() {
                 try {
-                    const modelURL = URL + "model.json";
-                    const metadataURL = URL + "metadata.json";
-
                     console.log("Loading model...");
                     model = await tmImage.load(modelURL, metadataURL);
                     maxPredictions = model.getTotalClasses();
