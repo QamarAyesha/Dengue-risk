@@ -26,29 +26,40 @@ factor_mapping = {
 factor_label = st.selectbox("Select Risk Factor to Display", list(factor_mapping.keys()), index=0)
 factor = factor_mapping[factor_label]
 
-# Create map
-m = leafmap.Map(center=[31.5204, 74.3587], zoom=12)
-m.add_heatmap(
-    data,
-    latitude="Latitude",
-    longitude="Longitude",
-    value=factor,
-    name="Heatmap",
-    radius=20,
-)
-m.to_streamlit(height=700)
 
-# Color key explanation
-st.markdown(
-    """
-    **Color Key Explanation:**
-    - 🟥 **Red**: High Risk
-    - 🟧 **Orange**: Moderate Risk
-    - 🟨 **Yellow**: Low Risk
-    - 🟩 **Green**: Minimal Risk
-    - 🟦 **Blue**: Very Low Risk
-    """
-)
+# Create layout
+col1, col2 = st.columns([4, 1])
+
+with col1:
+    # Create map
+    m = leafmap.Map(center=[31.5204, 74.3587], zoom=12)
+    m.add_heatmap(
+        data,
+        latitude="Latitude",
+        longitude="Longitude",
+        value=selected_factor,
+        name="Heatmap",
+        radius=20,
+    )
+    m.to_streamlit(height=700)
+
+with col2:
+    # Color key explanation using gradient bar
+    st.markdown(
+        """
+        **Color Key Explanation:**
+        <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 30px; border-radius: 8px; margin-top: 20px;">
+        </div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 300px;">
+            <span style="color: #0000FF;">Very Low Risk</span>
+            <span style="color: #00FF00;">Minimal Risk</span>
+            <span style="color: #FFFF00;">Low Risk</span>
+            <span style="color: #FFA500;">Moderate Risk</span>
+            <span style="color: #FF0000;">High Risk</span>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
 
 
