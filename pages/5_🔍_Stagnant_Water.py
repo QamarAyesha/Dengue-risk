@@ -185,7 +185,7 @@ def main():
 
     # Results Section
     st.subheader("Results")
-    query_params = st.experimental_get_query_params()
+    query_params = st.st.query_params()
     if query_params:
         result = {
             "file_name": query_params.get("file_name", [""])[0],
