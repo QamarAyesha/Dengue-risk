@@ -45,8 +45,8 @@ with col2:
     <p>Discover the truth behind common misconceptions about dengue.</p>
     """,
     unsafe_allow_html=True
-)
-    st.write("Discover the truth behind common misconceptions about dengue.")
+   )
+    write("Discover the truth behind common misconceptions about dengue.")
 
     with st.expander("Myth: Dengue only spreads in dirty areas."):
         st.write("Reality: Dengue mosquitoes can breed in clean water as well, such as in containers or flower pots.")
