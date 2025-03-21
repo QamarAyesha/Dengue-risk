@@ -29,8 +29,12 @@ def teachable_machine_component():
                         throw new Error(`Failed to fetch model.json: ${response.status} ${response.statusText}`);
                     }
 
+                    // Log the response text to debug
+                    const responseText = await response.text();
+                    console.log("Response Text:", responseText);
+
                     // Parse the JSON to ensure it's valid
-                    const json = await response.json();
+                    const json = JSON.parse(responseText);
                     console.log("Model JSON:", json);
 
                     // Load the model
