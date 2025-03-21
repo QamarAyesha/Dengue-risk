@@ -183,7 +183,7 @@ with col3:
         <div class="key-feature-box">
             <strong>Community Alerts</strong>  
             <ul>
-                <li>Send real-time dengue outbreak alerts</li>
+                <li>Send real-time dengue outbreak alerts to keep communities informed and prepared.</li>
                 <li>Engage communities in reporting and prevention efforts.</li>
             </ul>
         </div>
