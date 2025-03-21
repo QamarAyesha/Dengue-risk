@@ -59,7 +59,7 @@ pages = [
 # Cards with Page Descriptions in Multi-Column Layout
 st.header("Explore the App")
 
-# Add custom CSS for card styling
+# Add custom CSS for card styling and row spacing
 st.markdown("""
 <style>
 .card {
@@ -73,7 +73,7 @@ st.markdown("""
     flex-direction: column;
     justify-content: center;  /* Center content vertically */
     align-items: center;  /* Center content horizontally */
-    min-height: 180px;  /* Ensure all cards have the same height */
+    min-height: 150px;  /* Ensure all cards have the same height */
 }
 .card:hover {
     transform: translateY(-5px);
@@ -86,7 +86,10 @@ st.markdown("""
 .card p {
     font-size: 0.9rem;
     color: #555;
-    margin: 10px;
+    margin: 0;
+}
+.row-spacing {
+    margin-bottom: 40px;  /* Increase space between rows */
 }
 </style>
 """, unsafe_allow_html=True)
@@ -114,6 +117,9 @@ with row1_col2:
 with row1_col3:
     st.markdown(create_card(pages[2]), unsafe_allow_html=True)
 
+# Add spacing between rows
+st.markdown('<div class="row-spacing"></div>', unsafe_allow_html=True)
+
 # Add cards to the second row
 with row2_col1:
     st.markdown(create_card(pages[3]), unsafe_allow_html=True)
@@ -129,7 +135,7 @@ st.markdown("""
     background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
     padding: 20px;
     border-radius: 10px;
-    min-height: 250px;  /* Ensures each box has the same height */
+    min-height: 200px;  /* Ensures each box has the same height */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
