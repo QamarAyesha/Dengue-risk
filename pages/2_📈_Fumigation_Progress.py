@@ -36,8 +36,11 @@ st.plotly_chart(fig, use_container_width=True)
 # Progress Timeline with Clearer Visualization
 st.write("### Estimated Fumigation Progress Over Time")
 timeline_data = pd.DataFrame({
-    'Day': range(1, 16),
-    'Progress (%)': [i * (city_data['Progress (%)'].values[0] / 15) for i in range(1, 16)]
+    'Day': range(1, city_data['Estimated Completion (Days)'].values[0] + 1),
+    'Progress (%)': [
+        (i / city_data['Estimated Completion (Days)'].values[0]) * city_data['Progress (%)'].values[0]
+        for i in range(1, city_data['Estimated Completion (Days)'].values[0] + 1)
+    ]
 })
 fig_timeline = px.line(
     timeline_data, x='Day', y='Progress (%)',
