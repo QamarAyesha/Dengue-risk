@@ -74,7 +74,7 @@ with col1:
 with col2:
     st.markdown(
         """
-        <h3 style='font-size:18px;'>🧠 Dengue Myth Busters</h3>
+        <h3 style='font-size:18px;'>Dengue Myth Busters</h3>
         <p>Discover the truth behind common misconceptions about dengue.</p>
         """,
         unsafe_allow_html=True
