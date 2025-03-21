@@ -24,7 +24,7 @@ if "reported_cases" not in st.session_state:
 # Streamlit page
 def main():
     st.set_page_config(page_title="Reported Dengue Cases", layout="wide")
-    st.title("📅 Reported Dengue Cases")
+    st.title("Reported Dengue Cases")
     st.write("View and manage reported dengue cases data city-wise, month-wise, and year-wise.")
 
     # Add filters for city and year
