@@ -45,10 +45,10 @@ pages = [
         "description": "Visualize clustered markers on a map."
     },
     {
-        "title": "Heatmap",
-        "path": "/Heatmap",
+        "title": "Dangue Risk Map",
+        "path": "/Dangue_Risk_Map",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Heatmap",
-        "description": "Analyze data density with a heatmap."
+        "description": "Analyze dangue risk with a heatmap."
     },
     {
         "title": "Basemaps",
@@ -146,11 +146,6 @@ Explore the tools and features of this app to understand how AI and geospatial t
 👇 **Select a page from the sidebar** or click on the cards above to get started!
 """)
 
-# Add a map for visualization
-st.header("Global Disease Risk Map")
-m = leafmap.Map(minimap_control=True)
-m.add_basemap("OpenTopoMap")
-m.to_streamlit(height=500)
 
 # Footer
 st.markdown("---")
