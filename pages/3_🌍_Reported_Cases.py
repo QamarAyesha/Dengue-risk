@@ -9,16 +9,16 @@ if "reported_cases" not in st.session_state:
         "Year": [2023, 2023, 2023],
         "January": [10, 5, 8],
         "February": [15, 10, 12],
-        "March": [20, 15, 18],
-        "April": [0, 0, 0],  # Default to 0 for months without data
-        "May": [0, 0, 0],
+        "March": [80, 50, 30],
+        "April": [60, 40, 20],  # Default to 0 for months without data
+        "May": [0, 5, 6],
         "June": [0, 0, 0],
         "July": [0, 0, 0],
-        "August": [0, 0, 0],
-        "September": [0, 0, 0],
-        "October": [0, 0, 0],
-        "November": [0, 0, 0],
-        "December": [0, 0, 0]
+        "August": [30, 15, 22],
+        "September": [120, 80, 75],
+        "October": [10, 8, 20],
+        "November": [2, 0, 0],
+        "December": [0, 1, 3]
     })
 
 # Streamlit page
