@@ -24,6 +24,41 @@ st.markdown("""
 This app leverages **AI-driven predictive analytics** and **geospatial technologies** to identify, forecast, and mitigate the risks of infectious disease outbreaks, such as dengue, malaria, and chikungunya, in vulnerable regions.
 """)
 
+# Linked images for navigation
+st.header("Explore the App")
+col1, col2, col3, col4 = st.columns(4)
+with col1:
+    st.markdown("""
+    <a href="/Risk_Mapping" target="_self">
+        <img src="https://via.placeholder.com/150x100.png?text=Risk+Mapping" width="100%">
+    </a>
+    """, unsafe_allow_html=True)
+    st.markdown("**🌐 Risk Mapping**")
+
+with col2:
+    st.markdown("""
+    <a href="/Predictive_Analytics" target="_self">
+        <img src="https://via.placeholder.com/150x100.png?text=Predictive+Analytics" width="100%">
+    </a>
+    """, unsafe_allow_html=True)
+    st.markdown("**📊 Predictive Analytics**")
+
+with col3:
+    st.markdown("""
+    <a href="/Community_Alerts" target="_self">
+        <img src="https://via.placeholder.com/150x100.png?text=Community+Alerts" width="100%">
+    </a>
+    """, unsafe_allow_html=True)
+    st.markdown("**🚨 Community Alerts**")
+
+with col4:
+    st.markdown("""
+    <a href="/Government_Dashboard" target="_self">
+        <img src="https://via.placeholder.com/150x100.png?text=Government+Dashboard" width="100%">
+    </a>
+    """, unsafe_allow_html=True)
+    st.markdown("**📈 Government Dashboard**")
+
 # Key features section
 st.header("Key Features")
 col1, col2, col3 = st.columns(3)
@@ -50,7 +85,7 @@ with col3:
 st.header("Get Started")
 st.markdown("""
 Explore the tools and features of this app to understand how AI and geospatial technologies can help prevent infectious disease outbreaks.  
-👇 **Select a page from the sidebar** to get started!
+👇 **Select a page from the sidebar** or click on the images above to get started!
 """)
 
 # Add a map for visualization
