@@ -18,15 +18,21 @@ def teachable_machine_component():
 
             // Load the model and metadata
             async function init() {
-                const modelURL = URL + "model.json";
-                const metadataURL = URL + "metadata.json";
+                try {
+                    const modelURL = URL + "model.json";
+                    const metadataURL = URL + "metadata.json";
 
-                model = await tmImage.load(modelURL, metadataURL);
-                maxPredictions = model.getTotalClasses();
+                    console.log("Loading model...");
+                    model = await tmImage.load(modelURL, metadataURL);
+                    maxPredictions = model.getTotalClasses();
+                    console.log("Model loaded successfully!");
 
-                // Set up file input listener
-                const fileInput = document.getElementById("file-input");
-                fileInput.addEventListener("change", handleFileUpload, false);
+                    // Set up file input listener
+                    const fileInput = document.getElementById("file-input");
+                    fileInput.addEventListener("change", handleFileUpload, false);
+                } catch (error) {
+                    console.error("Error loading model:", error);
+                }
             }
 
             // Handle file upload
@@ -44,21 +50,27 @@ def teachable_machine_component():
                 imageContainer.appendChild(img);
 
                 // Make predictions
+                console.log("Making predictions...");
                 await predict(img);
             }
 
             // Make predictions on the uploaded image
             async function predict(image) {
-                const prediction = await model.predict(image);
-                const labelContainer = document.getElementById("label-container");
-                labelContainer.innerHTML = ""; // Clear previous results
+                try {
+                    const prediction = await model.predict(image);
+                    const labelContainer = document.getElementById("label-container");
+                    labelContainer.innerHTML = ""; // Clear previous results
 
-                for (let i = 0; i < maxPredictions; i++) {
-                    const classPrediction =
-                        prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                    const p = document.createElement("p");
-                    p.innerText = classPrediction;
-                    labelContainer.appendChild(p);
+                    for (let i = 0; i < maxPredictions; i++) {
+                        const classPrediction =
+                            prediction[i].className + ": " + prediction[i].probability.toFixed(2);
+                        const p = document.createElement("p");
+                        p.innerText = classPrediction;
+                        labelContainer.appendChild(p);
+                    }
+                    console.log("Predictions completed!");
+                } catch (error) {
+                    console.error("Error making predictions:", error);
                 }
             }
 
