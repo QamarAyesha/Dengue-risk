@@ -97,12 +97,12 @@ def teachable_machine_component():
 
                         // Add class name and probability
                         const classText = document.createElement("span");
-                        classText.innerText = ${className}: ;
+                        classText.innerText = `${className}: `;
                         classText.style.fontWeight = "bold";
                         classText.style.color = "var(--text-color)";
 
                         const probabilityText = document.createElement("span");
-                        probabilityText.innerText = ${probability};
+                        probabilityText.innerText = `${probability}`;
                         probabilityText.style.color = probability > 0.5 ? "red" : "green";
 
                         resultDiv.appendChild(classText);
@@ -190,3 +190,4 @@ def main():
         st.write("---")
 
 if __name__ == "__main__":
+    main()
