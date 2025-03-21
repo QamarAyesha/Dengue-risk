@@ -10,25 +10,19 @@ def teachable_machine_component():
         <div id="image-container"></div>
         <div id="label-container" style="margin-top: 20px; font-size: 16px; color: var(--text-color);"></div>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
         <script type="text/javascript">
-            // Model URLs
-            const modelURL = "https://storage.googleapis.com/tm-model/jtmut1SnG/model.json";
-            const metadataURL = "https://storage.googleapis.com/tm-model/jtmut1SnG/metadata.json";
+            // Local model URLs (update these paths to match your local files)
+            const modelURL = "./teachable_model/model.json"; // Path to model.json
+            const weightsBaseURL = "./teachable_model/"; // Path to weight files
 
-            let model, maxPredictions;
+            let model;
 
-            // Load the model and metadata
+            // Load the model
             async function init() {
                 try {
                     console.log("Loading model...");
-                    model = await tmImage.load(modelURL, metadataURL);
-                    maxPredictions = model.getTotalClasses();
+                    model = await tf.loadLayersModel(modelURL);
                     console.log("Model loaded successfully!");
-                    console.log("Model classes:", maxPredictions);
-
-                    // Log model details
-                    console.log("Model:", model);
 
                     // Set up file input listener
                     const fileInput = document.getElementById("file-input");
@@ -58,97 +52,51 @@ def teachable_machine_component():
                 img.onload = async () => {
                     console.log("Image loaded, making predictions...");
 
-                    // Create a canvas element to ensure the image is in the correct format
-                    const canvas = document.createElement("canvas");
-                    canvas.width = img.width;
-                    canvas.height = img.height;
-                    const ctx = canvas.getContext("2d");
-                    ctx.drawImage(img, 0, 0, img.width, img.height);
-
-                    // Pass the canvas to the predict function
-                    await predict(canvas);
-                };
-            }
-
-            // Make predictions on the uploaded image
-            async function predict(image) {
-                try {
-                    console.log("Predicting...");
-
-                    // Preprocess the image (resize and normalize)
-                    const tensor = tf.browser.fromPixels(image)
+                    // Preprocess the image
+                    const tensor = tf.browser.fromPixels(img)
                         .resizeNearestNeighbor([224, 224]) // Resize to 224x224
                         .toFloat() // Convert to float
                         .div(tf.scalar(255)) // Normalize to [0, 1]
                         .expandDims(); // Add batch dimension
 
+                    // Make predictions
+                    await predict(tensor);
+                };
+            }
+
+            // Make predictions on the uploaded image
+            async function predict(tensor) {
+                try {
+                    console.log("Predicting...");
                     const prediction = await model.predict(tensor);
                     console.log("Raw predictions:", prediction);
 
-                    // Log detailed predictions
-                    for (let i = 0; i < prediction.length; i++) {
-                        console.log(`Class: ${prediction[i].className}, Probability: ${prediction[i].probability}`);
-                    }
+                    // Get the predicted class
+                    const predictedClass = tf.argMax(prediction, 1).dataSync()[0];
+                    const confidence = tf.max(prediction).dataSync()[0];
 
+                    // Log the results
+                    console.log(`Predicted Class: ${predictedClass}, Confidence: ${confidence}`);
+
+                    // Display the results
                     const labelContainer = document.getElementById("label-container");
-                    labelContainer.innerHTML = ""; // Clear previous results
-
-                    let hasStagnantWater = false;
-                    let maxConfidence = 0;
-                    let predictedClass = "";
-
-                    for (let i = 0; i < maxPredictions; i++) {
-                        const className = prediction[i].className;
-                        const probability = prediction[i].probability.toFixed(2);
-
-                        // Track the class with the highest confidence
-                        if (probability > maxConfidence) {
-                            maxConfidence = probability;
-                            predictedClass = className;
-                        }
-
-                        // Create a result div
-                        const resultDiv = document.createElement("div");
-                        resultDiv.style.marginBottom = "10px";
-
-                        // Add class name and probability
-                        const classText = document.createElement("span");
-                        classText.innerText = `${className}: `;
-                        classText.style.fontWeight = "bold";
-                        classText.style.color = "var(--text-color)";
-
-                        const probabilityText = document.createElement("span");
-                        probabilityText.innerText = `${probability}`;
-                        probabilityText.style.color = probability > 0.5 ? "red" : "green";
-
-                        resultDiv.appendChild(classText);
-                        resultDiv.appendChild(probabilityText);
-
-                        // Highlight high-risk predictions
-                        if (className === "Stagnant Water" && probability > 0.5) {
-                            hasStagnantWater = true;
-                            resultDiv.style.backgroundColor = "var(--background-color)";
-                            resultDiv.style.color = "var(--text-color)";
-                            resultDiv.style.padding = "5px";
-                            resultDiv.style.borderRadius = "5px";
-                            resultDiv.style.border = "1px solid red";
-                        } else {
-                            resultDiv.style.backgroundColor = "var(--background-color)";
-                            resultDiv.style.color = "var(--text-color)";
-                            resultDiv.style.padding = "5px";
-                            resultDiv.style.borderRadius = "5px";
-                            resultDiv.style.border = "1px solid green";
-                        }
-
-                        labelContainer.appendChild(resultDiv);
-                    }
+                    labelContainer.innerHTML = `
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-weight: bold; color: var(--text-color);">Predicted Class:</span>
+                            <span style="color: ${confidence > 0.5 ? "red" : "green"};">${predictedClass}</span>
+                        </div>
+                        <div style="margin-bottom: 10px;">
+                            <span style="font-weight: bold; color: var(--text-color);">Confidence:</span>
+                            <span style="color: ${confidence > 0.5 ? "red" : "green"};">${confidence.toFixed(2)}</span>
+                        </div>
+                    `;
 
                     // Send results back to Streamlit
                     if (window.Streamlit) {
                         window.Streamlit.setComponentValue({
                             predicted_class: predictedClass,
-                            confidence: maxConfidence,
-                            has_stagnant_water: hasStagnantWater
+                            confidence: confidence,
+                            has_stagnant_water: confidence > 0.5
                         });
                     }
 
