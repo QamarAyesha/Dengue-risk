@@ -115,27 +115,50 @@ for i, page in enumerate(pages):
         </a>
         """, unsafe_allow_html=True)
 
-# Key features section (unchanged)
+
+
+# Custom CSS to add a translucent blue background
+st.markdown("""
+    <style>
+        .key-feature-box {
+            background-color: rgba(0, 123, 255, 0.2); /* translucent blue */
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Key Features section
 st.header("Key Features")
 col1, col2, col3 = st.columns(3)
+
 with col1:
     st.markdown("""
-    **🌐 Real-Time Risk Mapping**  
-    - Visualize disease risk zones using satellite and drone imagery.  
-    - Identify stagnant water sources and mosquito breeding grounds.  
-    """)
+        <div class="key-feature-box">
+            **🌐 Real-Time Risk Mapping**  
+            - Visualize disease risk zones using satellite and drone imagery.  
+            - Identify stagnant water sources and mosquito breeding grounds.
+        </div>
+    """, unsafe_allow_html=True)
+
 with col2:
     st.markdown("""
-    **📊 Predictive Analytics**  
-    - Forecast outbreaks using environmental data (rainfall, temperature, humidity).  
-    - AI models trained on historical outbreak data.  
-    """)
+        <div class="key-feature-box">
+            **📊 Predictive Analytics**  
+            - Forecast outbreaks using environmental data (rainfall, temperature, humidity).  
+            - AI models trained on historical outbreak data.
+        </div>
+    """, unsafe_allow_html=True)
+
 with col3:
     st.markdown("""
-    **🚨 Community Alerts**  
-    - Send real-time alerts via SMS and WhatsApp.  
-    - Engage communities in reporting and prevention efforts.  
-    """)
+        <div class="key-feature-box">
+            **🚨 Community Alerts**  
+            - Send real-time alerts via SMS and WhatsApp.  
+            - Engage communities in reporting and prevention efforts.
+        </div>
+    """, unsafe_allow_html=True)
+
 
 # Call-to-action section
 st.header("Get Started")
