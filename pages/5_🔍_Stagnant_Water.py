@@ -29,6 +29,10 @@ def teachable_machine_component():
                         throw new Error(`Failed to fetch model.json: ${response.status} ${response.statusText}`);
                     }
 
+                    // Parse the JSON to ensure it's valid
+                    const json = await response.json();
+                    console.log("Model JSON:", json);
+
                     // Load the model
                     model = await tf.loadLayersModel(modelURL);
                     console.log("Model loaded successfully!");
