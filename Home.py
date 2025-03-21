@@ -193,7 +193,7 @@ with col3:
 st.header("Get Started")
 st.markdown("""
 Explore the tools and features of this app to understand how AI and geospatial technologies can help prevent infectious disease outbreaks.  
-👇 **Select a page from the sidebar** or click on the cards above to get started!
+**Select a page from the sidebar** or click on the cards above to get started!
 """)
 
 # Footer
