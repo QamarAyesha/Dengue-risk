@@ -39,14 +39,13 @@ with col1:
 
 # Myth Buster Section with Accordion UI
 with col2:
-   st.markdown(
-    """
-    <h3 style='font-size:18px;'>🧠 Dengue Myth Busters</h3>
-    <p>Discover the truth behind common misconceptions about dengue.</p>
-    """,
-    unsafe_allow_html=True
-   )
-    write("Discover the truth behind common misconceptions about dengue.")
+    st.markdown(
+        """
+        <h3 style='font-size:18px;'>🧠 Dengue Myth Busters</h3>
+        <p>Discover the truth behind common misconceptions about dengue.</p>
+        """,
+        unsafe_allow_html=True
+    )
 
     with st.expander("Myth: Dengue only spreads in dirty areas."):
         st.write("Reality: Dengue mosquitoes can breed in clean water as well, such as in containers or flower pots.")
@@ -59,6 +58,7 @@ with col2:
 
     with st.expander("Myth: Mosquitoes only bite during the night."):
         st.write("Reality: Aedes mosquitoes are most active during early morning and late afternoon.")
+
 
 # Footer
 st.write("Stay informed, stay safe!")
