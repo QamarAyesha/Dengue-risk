@@ -1,51 +1,59 @@
 import streamlit as st
 
 st.set_page_config(layout="wide")
+
 st.title("Dengue Prevention and Awareness")
 
+# Introduction
 st.markdown(
     """
-    Learn how to protect yourself and your community from dengue. Explore preventive measures, identify symptoms, and uncover the facts.
+    Learn how to protect yourself and your community from dengue fever. Explore helpful tips, check symptoms, and uncover common misconceptions about dengue.
     """
 )
 
-# Symptom Checker
-st.header("🩺 Symptom Checker")
-symptoms = ["Fever", "Headache", "Muscle Pain", "Fatigue", "Nausea", "Skin Rash"]
-selected_symptoms = st.multiselect("Select your symptoms", symptoms)
+# Create layout
+col1, col2 = st.columns([2, 1])
 
-if selected_symptoms:
-    st.write("Based on your symptoms, it is recommended to:")
-    if "Fever" in selected_symptoms and "Muscle Pain" in selected_symptoms:
-        st.write("- Stay hydrated and monitor your temperature.")
-        st.write("- Consult a healthcare provider if the fever persists.")
-    else:
-        st.write("- Rest, drink fluids, and monitor symptoms.")
-        st.write("- Seek medical advice if symptoms worsen.")
+# Preventive Tips Section
+with col1:
+    st.header("🦟 Preventive Measures")
+    st.write("Follow these essential measures to reduce the risk of dengue:")
+    tips = [
+        "Eliminate stagnant water around your home.",
+        "Use mosquito repellents and wear protective clothing.",
+        "Install window and door screens to prevent mosquitoes from entering.",
+        "Participate in community clean-up campaigns.",
+        "Encourage fumigation and larvicide treatments in your neighborhood."
+    ]
+    for tip in tips:
+        st.write(f"✔️ {tip}")
 
-# Preventive Tips
-st.header("🛡️ Preventive Measures")
-tips_category = st.radio("Choose a category to get tips:", ["At Home", "Outdoors", "Community Action"])
+# Symptom Checker Section
+    st.header("🤒 Symptom Checker")
+    symptoms = st.multiselect(
+        "Select any symptoms you are experiencing:",
+        ["Fever", "Headache", "Muscle Pain", "Fatigue", "Skin Rash", "Nausea"]
+    )
+    if symptoms:
+        st.write("⚠️ If you are experiencing multiple symptoms, consider seeking medical advice.")
 
-if tips_category == "At Home":
-    st.write("- Empty standing water from containers.")
-    st.write("- Keep windows and doors closed or use screens.")
-elif tips_category == "Outdoors":
-    st.write("- Wear long-sleeved clothing.")
-    st.write("- Apply mosquito repellent.")
-elif tips_category == "Community Action":
-    st.write("- Organize cleanup drives to remove mosquito breeding sites.")
-    st.write("- Encourage proper waste management.")
+# Myth Buster Section with Accordion UI
+with col2:
+    st.header("🧠 Dengue Myth Busters")
+    st.write("Discover the truth behind common misconceptions about dengue.")
 
-# Myth Buster
-st.header("❗ Myth Buster")
-myths = {
-    "Dengue only spreads in dirty water": "Mosquitoes can breed in clean, stagnant water.",
-    "Only rural areas are at risk": "Urban areas with poor drainage are also prone to dengue outbreaks.",
-    "Dengue is contagious between people": "Dengue spreads through mosquito bites, not person-to-person contact."
-}
+    with st.expander("Myth: Dengue only spreads in dirty areas."):
+        st.write("Reality: Dengue mosquitoes can breed in clean water as well, such as in containers or flower pots.")
 
-selected_myth = st.selectbox("Select a myth to uncover the fact:", list(myths.keys()))
-st.write(f"**Fact:** {myths[selected_myth]}")
+    with st.expander("Myth: All mosquitoes transmit dengue."):
+        st.write("Reality: Only female Aedes aegypti mosquitoes are responsible for transmitting the dengue virus.")
 
-st.write("Stay informed and stay safe!")
+    with st.expander("Myth: Dengue is contagious from person to person."):
+        st.write("Reality: Dengue cannot spread directly from one person to another; it is only transmitted through mosquito bites.")
+
+    with st.expander("Myth: Mosquitoes only bite during the night."):
+        st.write("Reality: Aedes mosquitoes are most active during early morning and late afternoon.")
+
+# Footer
+st.write("Stay informed, stay safe!")
+
