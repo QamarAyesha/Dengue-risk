@@ -1,7 +1,6 @@
 import streamlit as st
 import leafmap.foliumap as leafmap
 import pandas as pd
-import numpy as np
 
 st.set_page_config(layout="wide")
 
@@ -19,6 +18,10 @@ st.markdown("""
             flex-direction: column;
             justify-content: center;
         }
+
+        .spacer {
+            margin-bottom: 20px;
+        }
     </style>
 """, unsafe_allow_html=True)
 
@@ -28,6 +31,9 @@ st.markdown("""
         <p>A comprehensive visualization of dengue risk levels, indicating areas with varying degrees of risk. The map illustrates the influence of specific factors, including weather conditions, stagnant water coverage, and historical dengue cases, on the overall risk assessment.</p>
     </div>
 """, unsafe_allow_html=True)
+
+# Add some space after the description
+st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
 
 # Load data
 data = pd.read_csv('https://raw.githubusercontent.com/QamarAyesha/test-data/refs/heads/main/lahore_dengue_data.csv')
@@ -42,6 +48,8 @@ factor_mapping = {
 factor_label = st.selectbox("Select Risk Factor to Display", list(factor_mapping.keys()), index=0)
 factor = factor_mapping[factor_label]
 
+# Add some space between the dropdown and the map
+st.markdown('<div class="spacer"></div>', unsafe_allow_html=True)
 
 # Create layout
 col1, col2 = st.columns([6, 1])
@@ -53,14 +61,13 @@ with col1:
         data,
         latitude="Latitude",
         longitude="Longitude",
-        value= factor,
+        value=factor,
         name="Heatmap",
         radius=20,
     )
     m.to_streamlit(height=700)
 
 with col2:
-
     # Color key explanation using gradient bar
     st.markdown(
         """
@@ -72,8 +79,6 @@ with col2:
         """,
         unsafe_allow_html=True
     )
-
-
 
 
 
