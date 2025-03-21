@@ -61,6 +61,18 @@ fig_timeline.update_layout(
     )
 )
 
+timeline_data = pd.DataFrame({
+    'Day': range(1, estimated_completion_days + 1),
+    'Progress (%)': [initial_progress * (day / estimated_completion_days) for day in range(1, estimated_completion_days + 1)]
+})
+
+line_shape='spline'  # Smooth curve
+
+fig_timeline.add_annotation(
+    x=estimated_completion_days, y=initial_progress,
+    text="Completion", showarrow=True, arrowhead=1
+)
+
 # Display the timeline plot
 st.plotly_chart(fig_timeline, use_container_width=True)
 
