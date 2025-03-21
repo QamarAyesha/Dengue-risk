@@ -62,12 +62,6 @@ fig_timeline.update_layout(
 )
 
 
-
-fig_timeline.add_annotation(
-    x=estimated_completion_days, y=initial_progress,
-    text="Completion", showarrow=True, arrowhead=1
-)
-
 # Display the timeline plot
 st.plotly_chart(fig_timeline, use_container_width=True)
 
