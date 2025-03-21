@@ -24,65 +24,62 @@ st.markdown("""
 This app leverages **AI-driven predictive analytics** and **geospatial technologies** to identify, forecast, and mitigate the risks of infectious disease outbreaks, such as dengue, malaria, and chikungunya, in vulnerable regions.
 """)
 
-# Cards in Multi-Column Layout
+# Define pages with their thumbnails and descriptions
+pages = [
+    {
+        "title": "Interactive Map",
+        "path": "/Interactive_Map",
+        "thumbnail": "https://via.placeholder.com/150x100.png?text=Interactive+Map",
+        "description": "Explore an interactive map with real-time data."
+    },
+    {
+        "title": "Split Map",
+        "path": "/Split_Map",
+        "thumbnail": "https://via.placeholder.com/150x100.png?text=Split+Map",
+        "description": "Compare two maps side by side."
+    },
+    {
+        "title": "Marker Cluster",
+        "path": "/Marker_Cluster",
+        "thumbnail": "https://via.placeholder.com/150x100.png?text=Marker+Cluster",
+        "description": "Visualize clustered markers on a map."
+    },
+    {
+        "title": "Heatmap",
+        "path": "/Heatmap",
+        "thumbnail": "https://via.placeholder.com/150x100.png?text=Heatmap",
+        "description": "Analyze data density with a heatmap."
+    },
+    {
+        "title": "Basemaps",
+        "path": "/Basemaps",
+        "thumbnail": "https://via.placeholder.com/150x100.png?text=Basemaps",
+        "description": "Switch between different basemaps."
+    },
+    {
+        "title": "Web Map Service",
+        "path": "/Web_Map_Service",
+        "thumbnail": "https://via.placeholder.com/150x100.png?text=Web+Map+Service",
+        "description": "Integrate WMS layers into the map."
+    }
+]
+
+# Cards with Page Thumbnails in Multi-Column Layout
 st.header("Explore the App")
-col1, col2, col3, col4 = st.columns(4)
+cols = st.columns(4)  # Adjust the number of columns as needed
 
-# Card 1: Risk Mapping
-with col1:
-    st.markdown("""
-    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <h3>🌐 Risk Mapping</h3>
-        <p>Visualize disease risk zones using satellite and drone imagery.</p>
-        <a href="/Risk_Mapping" target="_self" style="text-decoration: none;">
-            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-                Explore
-            </button>
+# Loop through pages and create cards
+for i, page in enumerate(pages):
+    with cols[i % 4]:  # Distribute cards across 4 columns
+        st.markdown(f"""
+        <a href="{page['path']}" target="_self" style="text-decoration: none; color: inherit;">
+            <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+                <h3>{page['title']}</h3>
+                <img src="{page['thumbnail']}" alt="{page['title']}" style="width: 100%; border-radius: 5px; margin-bottom: 10px;">
+                <p>{page['description']}</p>
+            </div>
         </a>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Card 2: Predictive Analytics
-with col2:
-    st.markdown("""
-    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <h3>📊 Predictive Analytics</h3>
-        <p>Forecast outbreaks using environmental data and AI models.</p>
-        <a href="/Predictive_Analytics" target="_self" style="text-decoration: none;">
-            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-                Explore
-            </button>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Card 3: Community Alerts
-with col3:
-    st.markdown("""
-    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <h3>🚨 Community Alerts</h3>
-        <p>Send real-time alerts via SMS and WhatsApp.</p>
-        <a href="/Community_Alerts" target="_self" style="text-decoration: none;">
-            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-                Explore
-            </button>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
-
-# Card 4: Government Dashboard
-with col4:
-    st.markdown("""
-    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
-        <h3>📈 Government Dashboard</h3>
-        <p>View dengue risk maps and fumigation efforts.</p>
-        <a href="/Government_Dashboard" target="_self" style="text-decoration: none;">
-            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-                Explore
-            </button>
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
+        """, unsafe_allow_html=True)
 
 # Key features section (unchanged)
 st.header("Key Features")
