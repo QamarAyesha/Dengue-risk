@@ -3,7 +3,6 @@ import streamlit.components.v1 as components
 
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component():
-    # Define the HTML and JavaScript for the component
     components.html(
         """
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
@@ -12,9 +11,8 @@ def teachable_machine_component():
         <div id="label-container" style="margin-top: 20px; font-size: 16px; color: var(--text-color);"></div>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
         <script type="text/javascript">
-            // Local model URLs (update these paths to match your local files)
-            const modelURL = "./teachable_model/model.json"; // Path to model.json
-            const weightsBaseURL = "./teachable_model/"; // Path to weight files
+            // Teachable Machine model URL
+            const modelURL = "https://teachablemachine.withgoogle.com/models/jtmut1SnG/model.json";
 
             let model;
 
@@ -24,7 +22,7 @@ def teachable_machine_component():
                     console.log("Loading model...");
                     console.log("Model URL:", modelURL);
 
-                    // Load the model using tf.loadLayersModel (for Sequential models)
+                    // Load the model using tf.loadLayersModel
                     model = await tf.loadLayersModel(modelURL);
                     console.log("Model loaded successfully!");
 
