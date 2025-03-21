@@ -37,7 +37,7 @@ with col1:
         data,
         latitude="Latitude",
         longitude="Longitude",
-        value=selected_factor,
+        value=actor,
         name="Heatmap",
         radius=20,
     )
