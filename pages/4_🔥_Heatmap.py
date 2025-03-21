@@ -28,7 +28,7 @@ factor = factor_mapping[factor_label]
 
 
 # Create layout
-col1, col2 = st.columns([4, 1])
+col1, col2 = st.columns([6, 1])
 
 with col1:
     # Create map
@@ -50,7 +50,7 @@ with col2:
         """
         <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 320px;">
             <span style="font-family: Arial, sans-serif; font-size: 10px;">Low</span>
-            <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 30px; border-radius: 8px;"></div>
+            <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 20px; border-radius: 0px;"></div>
             <span style="font-family: Arial, sans-serif; font-size: 10px;">High</span>
         </div>
         """,
