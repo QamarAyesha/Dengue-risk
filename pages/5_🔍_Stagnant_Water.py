@@ -178,6 +178,23 @@ def main():
     st.subheader("Teachable Machine Model")
     teachable_machine_component()
 
+    # Results Section
+    st.subheader("Results")
+    query_params = st.query_params
+    if query_params:
+        result = {
+            "file_name": query_params.get("file_name", [""])[0],
+            "predicted_class": query_params.get("predicted_class", [""])[0],
+            "confidence": float(query_params.get("confidence", [0])[0]),
+            "risk_score": float(query_params.get("risk_score", [0])[0])
+        }
+        st.write(f"📄 **File Name**: {result['file_name']}")
+        st.write(f"📍 **City**: {city}")
+        st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
+        st.write(f"🦟 Dengue Risk Score: **{result['risk_score']:.2f}**")
+        if result["predicted_class"] == "Stagnant Water":
+            st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
+        st.write("---")
     # Display last results or default results if no new files are uploaded
     st.subheader("Last Results")
     for result in st.session_state.last_results:
