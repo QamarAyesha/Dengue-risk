@@ -16,16 +16,44 @@ col1, col2 = st.columns([2, 1])
 
 # Preventive Tips Section
 with col1:
-    # Preventive Measures section
-    st.header("Preventive Measures")
+    # Custom CSS to add a slightly darker translucent blue background
     st.markdown("""
-        <ul>
-            <li>Eliminate stagnant water around your home.</li>
-            <li>Use mosquito repellents and wear protective clothing.</li>
-            <li>Install window and door screens to prevent mosquitoes from entering.</li>
-            <li>Participate in community clean-up campaigns.</li>
-            <li>Encourage fumigation and larvicide treatments in your neighborhood.</li>
-        </ul>
+        <style>
+            .key-feature-box {
+                background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
+                padding: 20px;
+                border-radius: 10px;
+                min-height: 200px;  /* Ensures each box has the same height */
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+            }
+        
+            ul {
+                margin: 0;
+                padding-left: 20px;
+            }
+        
+            li {
+                margin-bottom: 10px;
+            }
+        </style>
+    """, unsafe_allow_html=True)
+
+    # Preventive Measures section with the same blue background
+    st.header("Preventive Measures")
+
+    # Wrapping the tips in a div with the key-feature-box class
+    st.markdown("""
+        <div class="key-feature-box">
+            <ul>
+                <li>Eliminate stagnant water around your home.</li>
+                <li>Use mosquito repellents and wear protective clothing.</li>
+                <li>Install window and door screens to prevent mosquitoes from entering.</li>
+                <li>Participate in community clean-up campaigns.</li>
+                <li>Encourage fumigation and larvicide treatments in your neighborhood.</li>
+            </ul>
+        </div>
     """, unsafe_allow_html=True)
     
     # Symptom checker
@@ -42,58 +70,31 @@ with col1:
             st.write("- Rest, drink fluids, and monitor symptoms.")
             st.write("- Seek medical advice if symptoms worsen.")
 
-# Myth Buster Section with Blue Background
+# Myth Buster Section with Accordion UI
 with col2:
-    # Custom CSS for Myth Busters background
-    st.markdown(""" 
-        <style>
-            .myth-buster-box {
-                background-color: rgba(70, 130, 180, 0.7); /* Translucent blue with opacity */
-                padding: 20px;
-                border-radius: 10px;
-                min-height: 200px;
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-            }
-        </style>
-    """, unsafe_allow_html=True)
-
-    # Myth Busters title
     st.markdown(
         """
         <h3 style='font-size:18px;'>Dengue Myth Busters</h3>
         <p>Discover the truth behind common misconceptions about dengue.</p>
-    """,
+        """,
         unsafe_allow_html=True
     )
 
-    # Wrapping the Myth Busters content inside the blue box
-    st.markdown(""" 
-        <div class="myth-buster-box">
-            <div class="expander">
-                <details>
-                    <summary>Myth: Dengue only spreads in dirty areas.</summary>
-                    Reality: Dengue mosquitoes can breed in clean water as well, such as in containers or flower pots.
-                </details>
-                <details>
-                    <summary>Myth: All mosquitoes transmit dengue.</summary>
-                    Reality: Only female Aedes aegypti mosquitoes are responsible for transmitting the dengue virus.
-                </details>
-                <details>
-                    <summary>Myth: Dengue is contagious from person to person.</summary>
-                    Reality: Dengue cannot spread directly from one person to another; it is only transmitted through mosquito bites.
-                </details>
-                <details>
-                    <summary>Myth: Mosquitoes only bite during the night.</summary>
-                    Reality: Aedes mosquitoes are most active during early morning and late afternoon.
-                </details>
-            </div>
-        </div>
-    """, unsafe_allow_html=True)
+    with st.expander("Myth: Dengue only spreads in dirty areas."):
+        st.write("Reality: Dengue mosquitoes can breed in clean water as well, such as in containers or flower pots.")
+
+    with st.expander("Myth: All mosquitoes transmit dengue."):
+        st.write("Reality: Only female Aedes aegypti mosquitoes are responsible for transmitting the dengue virus.")
+
+    with st.expander("Myth: Dengue is contagious from person to person."):
+        st.write("Reality: Dengue cannot spread directly from one person to another; it is only transmitted through mosquito bites.")
+
+    with st.expander("Myth: Mosquitoes only bite during the night."):
+        st.write("Reality: Aedes mosquitoes are most active during early morning and late afternoon.")
 
 # Footer
 st.write("Stay informed, stay safe!")
+
 
 
 
