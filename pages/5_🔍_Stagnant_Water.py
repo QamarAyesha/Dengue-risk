@@ -8,7 +8,7 @@ def teachable_machine_component():
         <div>Teachable Machine Image Model</div>
         <input type="file" id="file-input" accept="image/*" />
         <div id="image-container"></div>
-        <div id="label-container"></div>
+        <div id="label-container" style="margin-top: 20px; font-size: 16px;"></div>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
         <script type="text/javascript">
@@ -67,11 +67,33 @@ def teachable_machine_component():
                     labelContainer.innerHTML = ""; // Clear previous results
 
                     for (let i = 0; i < maxPredictions; i++) {
-                        const classPrediction =
-                            prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-                        const p = document.createElement("p");
-                        p.innerText = classPrediction;
-                        labelContainer.appendChild(p);
+                        const className = prediction[i].className;
+                        const probability = prediction[i].probability.toFixed(2);
+
+                        // Create a result div
+                        const resultDiv = document.createElement("div");
+                        resultDiv.style.marginBottom = "10px";
+
+                        // Add class name and probability
+                        const classText = document.createElement("span");
+                        classText.innerText = `${className}: `;
+                        classText.style.fontWeight = "bold";
+
+                        const probabilityText = document.createElement("span");
+                        probabilityText.innerText = `${probability}`;
+                        probabilityText.style.color = probability > 0.5 ? "red" : "green";
+
+                        resultDiv.appendChild(classText);
+                        resultDiv.appendChild(probabilityText);
+
+                        // Highlight high-risk predictions
+                        if (className === "Stagnant Water" && probability > 0.5) {
+                            resultDiv.style.backgroundColor = "#ffcccc"; // Light red background
+                            resultDiv.style.padding = "5px";
+                            resultDiv.style.borderRadius = "5px";
+                        }
+
+                        labelContainer.appendChild(resultDiv);
                     }
                     console.log("Predictions completed!");
                 } catch (error) {
@@ -83,7 +105,7 @@ def teachable_machine_component():
             init();
         </script>
         """,
-        height=500,
+        height=600,
     )
 
 # Streamlit App
