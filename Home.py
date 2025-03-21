@@ -73,7 +73,7 @@ st.markdown("""
     flex-direction: column;
     justify-content: center;  /* Center content vertically */
     align-items: center;  /* Center content horizontally */
-    min-height: 150px;  /* Ensure all cards have the same height */
+    min-height: 180px;  /* Ensure all cards have the same height */
 }
 .card:hover {
     transform: translateY(-5px);
@@ -129,7 +129,7 @@ st.markdown("""
     background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
     padding: 20px;
     border-radius: 10px;
-    min-height: 200px;  /* Ensures each box has the same height */
+    min-height: 250px;  /* Ensures each box has the same height */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
