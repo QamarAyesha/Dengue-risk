@@ -119,13 +119,26 @@ for i, page in enumerate(pages):
 
 import streamlit as st
 
-# Custom CSS to add a translucent light blue background
+# Custom CSS to add a slightly darker translucent blue background and ensure equal column sizes
 st.markdown("""
     <style>
         .key-feature-box {
-            background-color: rgba(173, 216, 230, 0.5); /* light blue with some opacity */
+            background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
             padding: 20px;
             border-radius: 10px;
+            min-height: 200px;  /* Ensures each box has the same height */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        li {
+            margin-bottom: 10px;
         }
     </style>
 """, unsafe_allow_html=True)
@@ -137,29 +150,36 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("""
         <div class="key-feature-box">
-            Real-Time Risk Mapping  
-            - Visualize disease risk zones using satellite and drone imagery.  
-            - Identify stagnant water sources and mosquito breeding grounds.
+            <strong>Real-Time Risk Mapping</strong>  
+            <ul>
+                <li>Visualize disease risk zones using satellite and drone imagery.</li>
+                <li>Identify stagnant water sources and mosquito breeding grounds.</li>
+            </ul>
         </div>
     """, unsafe_allow_html=True)
 
 with col2:
     st.markdown("""
         <div class="key-feature-box">
-            Predictive Analytics  
-            - Forecast outbreaks using environmental data (rainfall, temperature, humidity).  
-            - AI models trained on historical outbreak data.
+            <strong>Predictive Analytics</strong>  
+            <ul>
+                <li>Forecast outbreaks using environmental data (rainfall, temperature, humidity).</li>
+                <li>AI models trained on historical outbreak data.</li>
+            </ul>
         </div>
     """, unsafe_allow_html=True)
 
 with col3:
     st.markdown("""
         <div class="key-feature-box">
-            Community Alerts 
-            - Send real-time alerts via SMS and WhatsApp.  
-            - Engage communities in reporting and prevention efforts.
+            <strong>Community Alerts</strong>  
+            <ul>
+                <li>Send real-time alerts via SMS and WhatsApp.</li>
+                <li>Engage communities in reporting and prevention efforts.</li>
+            </ul>
         </div>
     """, unsafe_allow_html=True)
+
 
 
 
