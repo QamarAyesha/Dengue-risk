@@ -33,12 +33,8 @@ def teachable_machine_component():
                     const responseText = await response.text();
                     console.log("Response Text:", responseText);
 
-                    // Parse the JSON to ensure it's valid
-                    const json = JSON.parse(responseText);
-                    console.log("Model JSON:", json);
-
-                    // Load the model
-                    model = await tf.loadLayersModel(modelURL);
+                    // Load the model using tf.loadGraphModel (for Teachable Machine models)
+                    model = await tf.loadGraphModel(modelURL);
                     console.log("Model loaded successfully!");
 
                     // Set up file input listener
@@ -46,6 +42,8 @@ def teachable_machine_component():
                     fileInput.addEventListener("change", handleFileUpload, false);
                 } catch (error) {
                     console.error("Error loading model:", error);
+                    const labelContainer = document.getElementById("label-container");
+                    labelContainer.innerHTML = `<div style="color: red;">Error loading model: ${error.message}</div>`;
                 }
             }
 
@@ -120,6 +118,8 @@ def teachable_machine_component():
                     console.log("Predictions completed!");
                 } catch (error) {
                     console.error("Error making predictions:", error);
+                    const labelContainer = document.getElementById("label-container");
+                    labelContainer.innerHTML = `<div style="color: red;">Error making predictions: ${error.message}</div>`;
                 }
             }
 
