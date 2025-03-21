@@ -24,48 +24,65 @@ st.markdown("""
 This app leverages **AI-driven predictive analytics** and **geospatial technologies** to identify, forecast, and mitigate the risks of infectious disease outbreaks, such as dengue, malaria, and chikungunya, in vulnerable regions.
 """)
 
-# Buttons with Icons in Multi-Column Layout
+# Cards in Multi-Column Layout
 st.header("Explore the App")
 col1, col2, col3, col4 = st.columns(4)
+
+# Card 1: Risk Mapping
 with col1:
     st.markdown("""
-    <a href="/Risk_Mapping" target="_self">
-        <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-            🌐 Risk Mapping
-        </button>
-    </a>
+    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+        <h3>🌐 Risk Mapping</h3>
+        <p>Visualize disease risk zones using satellite and drone imagery.</p>
+        <a href="/Risk_Mapping" target="_self" style="text-decoration: none;">
+            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Explore
+            </button>
+        </a>
+    </div>
     """, unsafe_allow_html=True)
-    st.markdown("**Visualize disease risk zones** using satellite and drone imagery.")
 
+# Card 2: Predictive Analytics
 with col2:
     st.markdown("""
-    <a href="/Predictive_Analytics" target="_self">
-        <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-            📊 Predictive Analytics
-        </button>
-    </a>
+    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+        <h3>📊 Predictive Analytics</h3>
+        <p>Forecast outbreaks using environmental data and AI models.</p>
+        <a href="/Predictive_Analytics" target="_self" style="text-decoration: none;">
+            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Explore
+            </button>
+        </a>
+    </div>
     """, unsafe_allow_html=True)
-    st.markdown("**Forecast outbreaks** using environmental data and AI models.")
 
+# Card 3: Community Alerts
 with col3:
     st.markdown("""
-    <a href="/Community_Alerts" target="_self">
-        <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-            🚨 Community Alerts
-        </button>
-    </a>
+    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+        <h3>🚨 Community Alerts</h3>
+        <p>Send real-time alerts via SMS and WhatsApp.</p>
+        <a href="/Community_Alerts" target="_self" style="text-decoration: none;">
+            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Explore
+            </button>
+        </a>
+    </div>
     """, unsafe_allow_html=True)
-    st.markdown("**Send real-time alerts** via SMS and WhatsApp.")
 
+# Card 4: Government Dashboard
 with col4:
     st.markdown("""
-    <a href="/Government_Dashboard" target="_self">
-        <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
-            📈 Government Dashboard
-        </button>
-    </a>
+    <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+        <h3>📈 Government Dashboard</h3>
+        <p>View dengue risk maps and fumigation efforts.</p>
+        <a href="/Government_Dashboard" target="_self" style="text-decoration: none;">
+            <button style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+                Explore
+            </button>
+        </a>
+    </div>
     """, unsafe_allow_html=True)
-    st.markdown("**View dengue risk maps** and fumigation efforts.")
 
 # Key features section (unchanged)
 st.header("Key Features")
@@ -93,7 +110,7 @@ with col3:
 st.header("Get Started")
 st.markdown("""
 Explore the tools and features of this app to understand how AI and geospatial technologies can help prevent infectious disease outbreaks.  
-👇 **Select a page from the sidebar** or click on the buttons above to get started!
+👇 **Select a page from the sidebar** or click on the cards above to get started!
 """)
 
 # Add a map for visualization
