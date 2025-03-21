@@ -48,11 +48,10 @@ with col2:
     # Color key explanation using gradient bar
     st.markdown(
         """
-        **Color Key Explanation:**
-        <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 30px; border-radius: 8px; margin-top: 20px;"></div>
-        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 300px; font-family: Arial, sans-serif; font-size: 10px;">
-            <span>Low</span>
-            <span>High</span>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; align-items: center; height: 320px;">
+            <span style="font-family: Arial, sans-serif; font-size: 10px;">Low</span>
+            <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 30px; border-radius: 8px;"></div>
+            <span style="font-family: Arial, sans-serif; font-size: 10px;">High</span>
         </div>
         """,
         unsafe_allow_html=True
