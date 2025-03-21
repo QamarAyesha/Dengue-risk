@@ -183,7 +183,7 @@ with col3:
         <div class="key-feature-box">
             <strong>Community Alerts</strong>  
             <ul>
-                <li>Send real-time alerts via SMS and WhatsApp.</li>
+                <li>Send real-time alerts</li>
                 <li>Engage communities in reporting and prevention efforts.</li>
             </ul>
         </div>
@@ -200,6 +200,5 @@ Explore the tools and features of this app to understand how AI and geospatial t
 st.markdown("---")
 st.markdown("""
 **Disclaimer**: This app is a prototype designed for educational and demonstration purposes.  
-**Contact**: For inquiries, please email [support@example.com](mailto:support@example.com).
 """)
 
