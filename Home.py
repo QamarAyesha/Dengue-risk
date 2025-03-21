@@ -24,37 +24,18 @@ This app leverages **AI-driven predictive analytics** and **geospatial technolog
 
 # Define pages with their descriptions
 pages = [
-    {
-        "title": "Dengue Risk Map",
-        "path": "/Dengue_Risk_Map",
-        "description": "Analyze dengue risk with a heatmap."
-    },
-    {
-        "title": "Fumigation Progress",
-        "path": "/Fumigation_Progress",
-        "description": "Displays progress of fumigation by government staff."
-    },
-    {
-        "title": "Reported Cases",
-        "path": "/Reported_Cases",
-        "description": "Visualize historically reported cases."
-    },
-    {
-        "title": "Environmental Factors",
-        "path": "/Environmental_Factors",
-        "description": "Analyze weather and environmental risks."
-    },
-    {
-        "title": "Stagnant Water",
-        "path": "/Stagnant_Water",
-        "description": "Satellite-based analysis of stagnant water and associated risk."
-    },
-    {
-        "title": "Guidelines",
-        "path": "/Guidelines",
-        "description": "Prevention and Awareness."
-    }
+    {"title": "Dengue Risk Map", "path": "/Dengue_Risk_Map", "description": "Analyze dengue risk with a heatmap."},
+    {"title": "Fumigation Progress", "path": "/Fumigation_Progress", "description": "Displays progress of fumigation by government staff."},
+    {"title": "Reported Cases", "path": "/Reported_Cases", "description": "Visualize historically reported cases."},
+    {"title": "Environmental Factors", "path": "/Environmental_Factors", "description": "Analyze weather and environmental risks."},
+    {"title": "Stagnant Water", "path": "/Stagnant_Water", "description": "Satellite-based analysis of stagnant water and associated risk."},
+    {"title": "Guidelines", "path": "/Guidelines", "description": "Prevention and Awareness."}
 ]
+
+# Display titles in blue
+for page in pages:
+    st.markdown(f"<h2 style='color:#007bff;'>{page['title']}</h2>", unsafe_allow_html=True)
+    st.write(page['description'])
 
 # Cards with Page Descriptions in Multi-Column Layout
 st.header("Explore the App")
@@ -193,7 +174,7 @@ with col3:
 st.header("Get Started")
 st.markdown("""
 Explore the tools and features of this app to understand how AI and geospatial technologies can help prevent infectious disease outbreaks.  
-👇 **Select a page from the sidebar** or click on the cards above to get started!
+**Select a page from the sidebar** or click on the cards above to get started!
 """)
 
 # Footer
