@@ -18,7 +18,7 @@ This application utilizes AI and geospatial technologies to predict and prevent 
 # Page title and introduction
 st.title("🌍 AI-Driven Dengue Prevention System")
 st.markdown("""
-### How might we predict and prevent outbreaks of infectious diseases in vulnerable communities?
+### Predict and prevent outbreaks of infectious diseases in vulnerable communities
 This app leverages **AI-driven predictive analytics** and **geospatial technologies** to identify, forecast, and mitigate the risks of infectious disease outbreaks, such as dengue, malaria, and chikungunya, in vulnerable regions.
 """)
 
