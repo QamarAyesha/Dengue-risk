@@ -57,7 +57,6 @@ with col2:
         """,
         unsafe_allow_html=True
     )
-    )
 
 
 
