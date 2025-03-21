@@ -1,8 +1,4 @@
-import streamlit as st
-import streamlit.components.v1 as components
-
-# Teachable Machine TensorFlow.js Integration with File Upload
-def teachable_machine_component():
+function teachable_machine_component() {
     components.html(
         """
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
@@ -26,6 +22,9 @@ def teachable_machine_component():
                     maxPredictions = model.getTotalClasses();
                     console.log("Model loaded successfully!");
                     console.log("Model classes:", maxPredictions);
+
+                    // Log model details
+                    console.log("Model:", model);
 
                     // Set up file input listener
                     const fileInput = document.getElementById("file-input");
@@ -60,8 +59,21 @@ def teachable_machine_component():
             async function predict(image) {
                 try {
                     console.log("Predicting...");
-                    const prediction = await model.predict(image);
+
+                    // Preprocess the image (resize and normalize)
+                    const tensor = tf.browser.fromPixels(image)
+                        .resizeNearestNeighbor([224, 224]) // Resize to 224x224
+                        .toFloat() // Convert to float
+                        .div(tf.scalar(255)) // Normalize to [0, 1]
+                        .expandDims(); // Add batch dimension
+
+                    const prediction = await model.predict(tensor);
                     console.log("Raw predictions:", prediction);
+
+                    // Log detailed predictions
+                    for (let i = 0; i < prediction.length; i++) {
+                        console.log(`Class: ${prediction[i].className}, Probability: ${prediction[i].probability}`);
+                    }
 
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = ""; // Clear previous results
@@ -148,25 +160,5 @@ def teachable_machine_component():
         </style>
         """,
         height=500,
-    )
-
-# Streamlit App
-def main():
-    st.set_page_config(page_title="Satellite Image Analysis for Dengue Risk", layout="wide")
-    st.title("Satellite Image Analysis for Dengue Risk")
-    st.write("Upload satellite images to detect stagnant water spots.")
-
-    # City selection
-    st.subheader("Select City")
-    city = st.selectbox(
-        "Choose a city",
-        ["Lahore", "Karachi", "Islamabad", "Faisalabad", "Multan"],  # Major cities
-        index=0  # Default to Lahore
-    )
-
-    # Add Teachable Machine Component
-    st.subheader("Teachable Machine Model")
-    teachable_machine_component()
-
-if __name__ == "__main__":
-    main()
+    );
+}
