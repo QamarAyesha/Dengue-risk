@@ -35,20 +35,32 @@ st.plotly_chart(fig, use_container_width=True)
 
 # Progress Timeline with Clearer Visualization
 st.write("### Estimated Fumigation Progress Over Time")
+
+# Get the estimated completion days for the selected city
+estimated_completion_days = city_data['Estimated Completion (Days)'].values[0]
+
+# Create timeline data that correctly scales the progress
 timeline_data = pd.DataFrame({
-    'Day': range(1, city_data['Estimated Completion (Days)'].values[0] + 1),
+    'Day': range(1, estimated_completion_days + 1),
     'Progress (%)': [
-        (i / city_data['Estimated Completion (Days)'].values[0]) * city_data['Progress (%)'].values[0]
-        for i in range(1, city_data['Estimated Completion (Days)'].values[0] + 1)
+        (i / estimated_completion_days) * city_data['Progress (%)'].values[0]
+        for i in range(1, estimated_completion_days + 1)
     ]
 })
+
+# Create the line plot for the timeline
 fig_timeline = px.line(
     timeline_data, x='Day', y='Progress (%)',
     title=f'Progress Timeline for {selected_city}',
     markers=True, line_shape='linear'
 )
+
+# Format the Y-axis to show percentage format
 fig_timeline.update_layout(yaxis=dict(tickformat=".0%"))
+
+# Display the timeline plot
 st.plotly_chart(fig_timeline, use_container_width=True)
+
 
 # Feedback Form
 st.write("### Provide Feedback")
