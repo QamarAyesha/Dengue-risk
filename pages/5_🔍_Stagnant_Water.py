@@ -113,7 +113,7 @@ def teachable_machine_component():
                 }
             }
         </style>
-        ",
+        """,
         height=600,
     )
 
