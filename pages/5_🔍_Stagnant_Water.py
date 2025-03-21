@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component():
+    # Define the HTML and JavaScript for the component
     components.html(
         """
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
@@ -23,18 +24,8 @@ def teachable_machine_component():
                     console.log("Loading model...");
                     console.log("Model URL:", modelURL);
 
-                    // Fetch the model.json file to check if it's accessible
-                    const response = await fetch(modelURL);
-                    if (!response.ok) {
-                        throw new Error(`Failed to fetch model.json: ${response.status} ${response.statusText}`);
-                    }
-
-                    // Log the response text to debug
-                    const responseText = await response.text();
-                    console.log("Response Text:", responseText);
-
-                    // Load the model using tf.loadGraphModel (for Teachable Machine models)
-                    model = await tf.loadGraphModel(modelURL);
+                    // Load the model using tf.loadLayersModel (for Sequential models)
+                    model = await tf.loadLayersModel(modelURL);
                     console.log("Model loaded successfully!");
 
                     // Set up file input listener
