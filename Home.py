@@ -33,10 +33,10 @@ pages = [
         "description": "Explore an interactive map with real-time data."
     },
     {
-        "title": "Split Map",
-        "path": "/Split_Map",
+        "title": "Fumigation Progress",
+        "path": "/Fumigation Progress",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Split+Map",
-        "description": "Compare two maps side by side."
+        "description": "Displays progress of fumigation by government staff"
     },
     {
         "title": "Marker Cluster",
