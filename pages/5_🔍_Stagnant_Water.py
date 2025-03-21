@@ -1,5 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import json  # Import the json module
 
 # Define class labels
 class_labels = {
@@ -10,6 +11,9 @@ class_labels = {
 
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component(class_labels):
+    # Convert class_labels to JSON string
+    class_labels_json = json.dumps(class_labels)
+    
     components.html(
         f"""
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
@@ -22,7 +26,7 @@ def teachable_machine_component(class_labels):
             const modelURL = "https://teachablemachine.withgoogle.com/models/jtmut1SnG/model.json";
 
             // Class labels
-            const classLabels = {class_labels};
+            const classLabels = {class_labels_json};
 
             let model;
 
