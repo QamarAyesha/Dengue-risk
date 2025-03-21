@@ -1,4 +1,8 @@
-function teachable_machine_component() {
+import streamlit as st
+import streamlit.components.v1 as components
+
+# Teachable Machine TensorFlow.js Integration with File Upload
+def teachable_machine_component():
     components.html(
         """
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
@@ -160,5 +164,34 @@ function teachable_machine_component() {
         </style>
         """,
         height=500,
-    );
-}
+    )
+
+# Streamlit App
+def main():
+    st.set_page_config(page_title="Satellite Image Analysis for Dengue Risk", layout="wide")
+    st.title("Satellite Image Analysis for Dengue Risk")
+    st.write("Upload satellite images to detect stagnant water spots.")
+
+    # City selection
+    st.subheader("Select City")
+    city = st.selectbox(
+        "Choose a city",
+        ["Lahore", "Karachi", "Islamabad", "Faisalabad", "Multan"],  # Major cities
+        index=0  # Default to Lahore
+    )
+
+    # Add Teachable Machine Component
+    st.subheader("Teachable Machine Model")
+    result = teachable_machine_component()
+
+    # Display predictions dynamically
+    if result:
+        st.subheader("Prediction Results")
+        st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
+        if result["has_stagnant_water"]:
+            st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
+        else:
+            st.success("✅ No stagnant water detected. Low dengue risk.")
+
+if __name__ == "__main__":
+    main()
