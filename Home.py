@@ -25,10 +25,10 @@ This app leverages **AI-driven predictive analytics** and **geospatial technolog
 # Define pages with their thumbnails and descriptions
 pages = [
     {
-        "title": "Interactive Map",
-        "path": "/Interactive_Map",
+        "title": "Dengue Risk Map",
+        "path": "/Dengue_Risk_Map",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Interactive+Map",
-        "description": "Explore an interactive map with real-time data."
+        "description": "Enalyze dangue risk with a heatmapta."
     },
     {
         "title": "Fumigation Progress",
@@ -37,28 +37,28 @@ pages = [
         "description": "Displays progress of fumigation by government staff"
     },
     {
-        "title": "Marker Cluster",
-        "path": "/Marker_Cluster",
+        "title": "Reported Cases",
+        "path": "/Reported_Cases",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Marker+Cluster",
-        "description": "Visualize clustered markers on a map."
+        "description": "Visualize historically reported cases."
     },
     {
-        "title": "Dangue Risk Map",
-        "path": "/Dangue_Risk_Map",
+        "title": "Environmental Factors",
+        "path": "/Environmental_Factors",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Heatmap",
-        "description": "Analyze dangue risk with a heatmap."
+        "description": "Analyze weather and environmental risks."
     },
     {
-        "title": "Basemaps",
-        "path": "/Basemaps",
+        "title": "Stagnant Water",
+        "path": "/Stagnant_Water",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Basemaps",
-        "description": "Switch between different basemaps."
+        "description": "Seatlite based analysis of stagnant water and associated risk."
     },
     {
-        "title": "Web Map Service",
-        "path": "/Web_Map_Service",
+        "title": "Guidelines",
+        "path": "/Guidelines",
         "thumbnail": "https://via.placeholder.com/300x150.png?text=Web+Map+Service",
-        "description": "Integrate WMS layers into the map."
+        "description": "Prevention and Awairness"
     }
 ]
 
