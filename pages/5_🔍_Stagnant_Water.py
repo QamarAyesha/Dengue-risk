@@ -25,6 +25,7 @@ def teachable_machine_component():
                     model = await tmImage.load(modelURL, metadataURL);
                     maxPredictions = model.getTotalClasses();
                     console.log("Model loaded successfully!");
+                    console.log("Model classes:", maxPredictions);
 
                     // Set up file input listener
                     const fileInput = document.getElementById("file-input");
@@ -38,6 +39,8 @@ def teachable_machine_component():
             async function handleFileUpload(event) {
                 const file = event.target.files[0];
                 if (!file) return;
+
+                console.log("File uploaded:", file.name);
 
                 // Display the uploaded image
                 const imageContainer = document.getElementById("image-container");
@@ -56,7 +59,10 @@ def teachable_machine_component():
             // Make predictions on the uploaded image
             async function predict(image) {
                 try {
+                    console.log("Predicting...");
                     const prediction = await model.predict(image);
+                    console.log("Predictions:", prediction);
+
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = ""; // Clear previous results
 
