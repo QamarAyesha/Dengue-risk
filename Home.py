@@ -29,37 +29,37 @@ pages = [
     {
         "title": "Interactive Map",
         "path": "/Interactive_Map",
-        "thumbnail": "https://via.placeholder.com/150x100.png?text=Interactive+Map",
+        "thumbnail": "https://via.placeholder.com/300x150.png?text=Interactive+Map",
         "description": "Explore an interactive map with real-time data."
     },
     {
         "title": "Split Map",
         "path": "/Split_Map",
-        "thumbnail": "https://via.placeholder.com/150x100.png?text=Split+Map",
+        "thumbnail": "https://via.placeholder.com/300x150.png?text=Split+Map",
         "description": "Compare two maps side by side."
     },
     {
         "title": "Marker Cluster",
         "path": "/Marker_Cluster",
-        "thumbnail": "https://via.placeholder.com/150x100.png?text=Marker+Cluster",
+        "thumbnail": "https://via.placeholder.com/300x150.png?text=Marker+Cluster",
         "description": "Visualize clustered markers on a map."
     },
     {
         "title": "Heatmap",
         "path": "/Heatmap",
-        "thumbnail": "https://via.placeholder.com/150x100.png?text=Heatmap",
+        "thumbnail": "https://via.placeholder.com/300x150.png?text=Heatmap",
         "description": "Analyze data density with a heatmap."
     },
     {
         "title": "Basemaps",
         "path": "/Basemaps",
-        "thumbnail": "https://via.placeholder.com/150x100.png?text=Basemaps",
+        "thumbnail": "https://via.placeholder.com/300x150.png?text=Basemaps",
         "description": "Switch between different basemaps."
     },
     {
         "title": "Web Map Service",
         "path": "/Web_Map_Service",
-        "thumbnail": "https://via.placeholder.com/150x100.png?text=Web+Map+Service",
+        "thumbnail": "https://via.placeholder.com/300x150.png?text=Web+Map+Service",
         "description": "Integrate WMS layers into the map."
     }
 ]
@@ -68,14 +68,50 @@ pages = [
 st.header("Explore the App")
 cols = st.columns(4)  # Adjust the number of columns as needed
 
+# Add custom CSS for card styling
+st.markdown("""
+<style>
+.card {
+    border: 1px solid #e1e4e8;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: transform 0.2s, box-shadow 0.2s;
+    height: 100%;  /* Ensure all cards have the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+.card h3 {
+    font-size: 1.25rem;
+    margin: 10px 0;
+}
+.card p {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0;
+}
+</style>
+""", unsafe_allow_html=True)
+
 # Loop through pages and create cards
 for i, page in enumerate(pages):
     with cols[i % 4]:  # Distribute cards across 4 columns
         st.markdown(f"""
         <a href="{page['path']}" target="_self" style="text-decoration: none; color: inherit;">
-            <div style="border: 1px solid #e1e4e8; border-radius: 10px; padding: 20px; text-align: center; box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);">
+            <div class="card">
+                <img src="{page['thumbnail']}" alt="{page['title']}">
                 <h3>{page['title']}</h3>
-                <img src="{page['thumbnail']}" alt="{page['title']}" style="width: 100%; border-radius: 5px; margin-bottom: 10px;">
                 <p>{page['description']}</p>
             </div>
         </a>
