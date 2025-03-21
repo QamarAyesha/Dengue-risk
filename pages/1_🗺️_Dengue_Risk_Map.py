@@ -7,11 +7,27 @@ st.set_page_config(layout="wide")
 
 st.title("Dengue Risk Heatmap")
 
-st.markdown(
-    """
-A comprehensive visualization of dengue risk levels, indicating areas with varying degrees of risk. The map illustrates the influence of specific factors, including weather conditions, stagnant water coverage, and historical dengue cases, on the overall risk assessment.
-    """
-)
+# Custom CSS to add a translucent blue background to the markdown
+st.markdown("""
+    <style>
+        .translucent-blue-box {
+            background-color: rgba(70, 130, 180, 0.5); /* Translucent blue with opacity */
+            padding: 20px;
+            border-radius: 10px;
+            min-height: 150px;  /* You can adjust this value as needed */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+    </style>
+""", unsafe_allow_html=True)
+
+# Apply the class to the markdown text
+st.markdown("""
+    <div class="translucent-blue-box">
+        <p>A comprehensive visualization of dengue risk levels, indicating areas with varying degrees of risk. The map illustrates the influence of specific factors, including weather conditions, stagnant water coverage, and historical dengue cases, on the overall risk assessment.</p>
+    </div>
+""", unsafe_allow_html=True)
 
 # Load data
 data = pd.read_csv('https://raw.githubusercontent.com/QamarAyesha/test-data/refs/heads/main/lahore_dengue_data.csv')
