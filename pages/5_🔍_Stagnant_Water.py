@@ -1,6 +1,10 @@
-function teachable_machine_component() {
+import streamlit as st
+import streamlit.components.v1 as components
+
+# Teachable Machine TensorFlow.js Integration with File Upload
+def teachable_machine_component():
     components.html(
-        `
+        """
         <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
         <input type="file" id="file-input" accept="image/*" />
         <div id="image-container"></div>
@@ -58,11 +62,6 @@ function teachable_machine_component() {
                     console.log("Predicting...");
                     const prediction = await model.predict(image);
                     console.log("Raw predictions:", prediction);
-
-                    // Log detailed predictions
-                    for (let i = 0; i < prediction.length; i++) {
-                        console.log(`Class: ${prediction[i].className}, Probability: ${prediction[i].probability}`);
-                    }
 
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = ""; // Clear previous results
@@ -147,7 +146,27 @@ function teachable_machine_component() {
                 }
             }
         </style>
-        `,
+        """,
         height=500,
-    );
-}
+    )
+
+# Streamlit App
+def main():
+    st.set_page_config(page_title="Satellite Image Analysis for Dengue Risk", layout="wide")
+    st.title("Satellite Image Analysis for Dengue Risk")
+    st.write("Upload satellite images to detect stagnant water spots.")
+
+    # City selection
+    st.subheader("Select City")
+    city = st.selectbox(
+        "Choose a city",
+        ["Lahore", "Karachi", "Islamabad", "Faisalabad", "Multan"],  # Major cities
+        index=0  # Default to Lahore
+    )
+
+    # Add Teachable Machine Component
+    st.subheader("Teachable Machine Model")
+    teachable_machine_component()
+
+if __name__ == "__main__":
+    main()
