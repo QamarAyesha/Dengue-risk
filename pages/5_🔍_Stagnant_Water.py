@@ -99,16 +99,19 @@ def teachable_machine_component(class_labels):
                 // Log the results
                 console.log(`Predicted Class: ${{className}}, Confidence: ${{confidence}}`);
 
+                // Determine if stagnant water is detected
+                const hasStagnantWater = predictedClass === 1 || predictedClass === 2;
+
                 // Display the results
                 const labelContainer = document.getElementById("label-container");
                 labelContainer.innerHTML = `
                     <div style="margin-bottom: 10px;">
                         <span style="font-weight: bold; color: var(--text-color);">Predicted Class:</span>
-                        <span style="color: ${{confidence > 0.5 ? "red" : "green"}};">${{className}}</span>
+                        <span style="color: ${{hasStagnantWater ? "red" : "green"}};">${{className}}</span>
                     </div>
                     <div style="margin-bottom: 10px;">
                         <span style="font-weight: bold; color: var(--text-color);">Confidence:</span>
-                        <span style="color: ${{confidence > 0.5 ? "red" : "green"}};">${{confidence.toFixed(2)}}</span>
+                        <span style="color: ${{hasStagnantWater ? "red" : "green"}};">${{confidence.toFixed(2)}}</span>
                     </div>
                 `;
 
@@ -117,7 +120,7 @@ def teachable_machine_component(class_labels):
                     Streamlit.setComponentValue({{
                         predicted_class: className,
                         confidence: confidence,
-                        has_stagnant_water: confidence > 0.5
+                        has_stagnant_water: hasStagnantWater
                     }});
                 }} else {{
                     console.error("Streamlit API not available.");
