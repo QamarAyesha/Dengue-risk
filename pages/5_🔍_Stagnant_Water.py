@@ -26,10 +26,10 @@ if "last_results" not in st.session_state:
 def teachable_machine_component():
     components.html(
         """
-        <div>Teachable Machine Image Model</div>
+        <div style="font-family: sans-serif; color: var(--text-color);">Teachable Machine Image Model</div>
         <input type="file" id="file-input" accept="image/*" />
         <div id="image-container"></div>
-        <div id="label-container" style="margin-top: 20px; font-size: 16px;"></div>
+        <div id="label-container" style="margin-top: 20px; font-size: 16px; color: var(--text-color);"></div>
         <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
         <script type="text/javascript">
@@ -99,6 +99,7 @@ def teachable_machine_component():
                         const classText = document.createElement("span");
                         classText.innerText = `${className}: `;
                         classText.style.fontWeight = "bold";
+                        classText.style.color = "var(--text-color)";
 
                         const probabilityText = document.createElement("span");
                         probabilityText.innerText = `${probability}`;
@@ -109,17 +110,17 @@ def teachable_machine_component():
 
                         // Highlight high-risk predictions
                         if (className === "Stagnant Water" && probability > 0.5) {
-                            resultDiv.style.backgroundColor = "#ffcccc"; // Light red background
-                            resultDiv.style.color = "#000000"; // Black text for better contrast
+                            resultDiv.style.backgroundColor = "var(--background-color)";
+                            resultDiv.style.color = "var(--text-color)";
                             resultDiv.style.padding = "5px";
                             resultDiv.style.borderRadius = "5px";
-                            resultDiv.style.border = "1px solid #ff0000"; // Red border for emphasis
+                            resultDiv.style.border = "1px solid red";
                         } else {
-                            resultDiv.style.backgroundColor = "#e6ffe6"; // Light green background for non-stagnant water
-                            resultDiv.style.color = "#000000"; // Black text for better contrast
+                            resultDiv.style.backgroundColor = "var(--background-color)";
+                            resultDiv.style.color = "var(--text-color)";
                             resultDiv.style.padding = "5px";
                             resultDiv.style.borderRadius = "5px";
-                            resultDiv.style.border = "1px solid #00ff00"; // Green border for emphasis
+                            resultDiv.style.border = "1px solid green";
                         }
 
                         labelContainer.appendChild(resultDiv);
@@ -133,6 +134,18 @@ def teachable_machine_component():
             // Initialize the model
             init();
         </script>
+        <style>
+            :root {
+                --text-color: black;
+                --background-color: white;
+            }
+            @media (prefers-color-scheme: dark) {
+                :root {
+                    --text-color: white;
+                    --background-color: #1e1e1e;
+                }
+            }
+        </style>
         """,
         height=600,
     )
