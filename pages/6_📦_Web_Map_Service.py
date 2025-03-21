@@ -39,7 +39,13 @@ with col1:
 
 # Myth Buster Section with Accordion UI
 with col2:
-    st.header("🧠 Dengue Myth Busters")
+   st.markdown(
+    """
+    <h3 style='font-size:18px;'>🧠 Dengue Myth Busters</h3>
+    <p>Discover the truth behind common misconceptions about dengue.</p>
+    """,
+    unsafe_allow_html=True
+)
     st.write("Discover the truth behind common misconceptions about dengue.")
 
     with st.expander("Myth: Dengue only spreads in dirty areas."):
