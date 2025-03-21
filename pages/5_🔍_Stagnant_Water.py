@@ -1,5 +1,26 @@
 import streamlit as st
 import streamlit.components.v1 as components
+import numpy as np
+from PIL import Image
+
+# Initialize session state to store results
+if "last_results" not in st.session_state:
+    st.session_state.last_results = [
+        {
+            "file_name": "default_image_1.jpg",
+            "city": "Lahore",  
+            "predicted_class": "No Stagnant Water",
+            "confidence": 0.85,
+            "risk_score": 15
+        },
+        {
+            "file_name": "default_image_2.jpg",
+            "city": "Karachi",  
+            "predicted_class": "Stagnant Water",
+            "confidence": 0.92,
+            "risk_score": 75
+        }
+    ]
 
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component():
@@ -108,15 +129,44 @@ def teachable_machine_component():
         height=600,
     )
 
+# Calculate risk score
+def calculate_risk_score(predictions, threshold=0.5):
+    """Calculate a dengue risk score based on predictions."""
+    # Count the number of stagnant water spots (placeholder)
+    stagnant_spots = np.sum(predictions > threshold)
+    
+    # Calculate risk score (example formula)
+    risk_score = stagnant_spots * 10  # Adjust based on your requirements
+    return risk_score
+
 # Streamlit App
 def main():
     st.set_page_config(page_title="Satellite Image Analysis for Dengue Risk", layout="wide")
     st.title("Satellite Image Analysis for Dengue Risk")
     st.write("Upload satellite images to detect stagnant water spots.")
 
+    # City selection
+    st.subheader("Select City")
+    city = st.selectbox(
+        "Choose a city",
+        ["Lahore", "Karachi", "Islamabad", "Faisalabad", "Multan"],  # Major cities
+        index=0  # Default to Lahore
+    )
+
     # Add Teachable Machine Component
-    st.subheader("Teachable Machine Model")
+    st.subheader("Teachable Machine Model to Detect Water Stagnation in satellite image")
     teachable_machine_component()
+
+    # Display last results or default results if no new files are uploaded
+    st.subheader("Last Results")
+    for result in st.session_state.last_results:
+        st.write(f"📄 **File Name**: {result['file_name']}")
+        st.write(f"📍 **City**: {result['city']}")  # Updated to use city
+        st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
+        st.write(f"🦟 Dengue Risk Score: **{result['risk_score']}**")
+        if result["predicted_class"] == "Stagnant Water":
+            st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
+        st.write("---")
 
 if __name__ == "__main__":
     main()
