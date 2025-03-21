@@ -117,11 +117,13 @@ for i, page in enumerate(pages):
 
 
 
-# Custom CSS to add a translucent blue background
+import streamlit as st
+
+# Custom CSS to add a translucent light blue background
 st.markdown("""
     <style>
         .key-feature-box {
-            background-color: rgba(0, 123, 255, 0.2); /* translucent blue */
+            background-color: rgba(173, 216, 230, 0.5); /* light blue with some opacity */
             padding: 20px;
             border-radius: 10px;
         }
@@ -135,7 +137,7 @@ col1, col2, col3 = st.columns(3)
 with col1:
     st.markdown("""
         <div class="key-feature-box">
-            **🌐 Real-Time Risk Mapping**  
+            Real-Time Risk Mapping  
             - Visualize disease risk zones using satellite and drone imagery.  
             - Identify stagnant water sources and mosquito breeding grounds.
         </div>
@@ -144,7 +146,7 @@ with col1:
 with col2:
     st.markdown("""
         <div class="key-feature-box">
-            **📊 Predictive Analytics**  
+            Predictive Analytics  
             - Forecast outbreaks using environmental data (rainfall, temperature, humidity).  
             - AI models trained on historical outbreak data.
         </div>
@@ -153,11 +155,12 @@ with col2:
 with col3:
     st.markdown("""
         <div class="key-feature-box">
-            **🚨 Community Alerts**  
+            Community Alerts 
             - Send real-time alerts via SMS and WhatsApp.  
             - Engage communities in reporting and prevention efforts.
         </div>
     """, unsafe_allow_html=True)
+
 
 
 # Call-to-action section
