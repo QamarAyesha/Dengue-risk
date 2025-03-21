@@ -42,7 +42,6 @@ with col1:
 
     # Preventive Measures section with the same blue background
     st.header("Preventive Measures")
-    st.write("Follow these essential measures to reduce the risk of dengue:")
 
     # Wrapping the tips in a div with the key-feature-box class
     st.markdown("""
