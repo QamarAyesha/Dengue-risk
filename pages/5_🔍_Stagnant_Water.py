@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import numpy as np
 from PIL import Image
+import urllib.parse
 
 # Teachable Machine TensorFlow.js Integration with File Upload
 def teachable_machine_component():
@@ -55,11 +56,11 @@ def teachable_machine_component():
 
                 // Make predictions
                 console.log("Making predictions...");
-                await predict(img);
+                await predict(img, file.name);
             }
 
             // Make predictions on the uploaded image
-            async function predict(image) {
+            async function predict(image, fileName) {
                 try {
                     console.log("Predicting...");
                     const prediction = await model.predict(image);
@@ -67,6 +68,10 @@ def teachable_machine_component():
 
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = ""; // Clear previous results
+
+                    let predictedClass = "";
+                    let confidence = 0;
+                    let riskScore = 0;
 
                     for (let i = 0; i < maxPredictions; i++) {
                         const className = prediction[i].className;
@@ -105,7 +110,26 @@ def teachable_machine_component():
                         }
 
                         labelContainer.appendChild(resultDiv);
+
+                        // Track the predicted class and confidence
+                        if (probability > confidence) {
+                            predictedClass = className;
+                            confidence = probability;
+                        }
                     }
+
+                    // Calculate risk score (normalized between 0 and 1)
+                    riskScore = prediction.find(p => p.className === "Stagnant Water").probability;
+
+                    // Send results to Streamlit
+                    const queryParams = new URLSearchParams({
+                        file_name: fileName,
+                        predicted_class: predictedClass,
+                        confidence: confidence,
+                        risk_score: riskScore
+                    });
+                    window.location.href = window.location.pathname + "?" + queryParams.toString();
+
                     console.log("Predictions completed!");
                 } catch (error) {
                     console.error("Error making predictions:", error);
@@ -161,10 +185,16 @@ def main():
 
     # Results Section
     st.subheader("Results")
-    if "results" in st.session_state:
-        result = st.session_state.results
+    query_params = st.experimental_get_query_params()
+    if query_params:
+        result = {
+            "file_name": query_params.get("file_name", [""])[0],
+            "predicted_class": query_params.get("predicted_class", [""])[0],
+            "confidence": float(query_params.get("confidence", [0])[0]),
+            "risk_score": float(query_params.get("risk_score", [0])[0])
+        }
         st.write(f"📄 **File Name**: {result['file_name']}")
-        st.write(f"📍 **City**: {result['city']}")
+        st.write(f"📍 **City**: {city}")
         st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
         st.write(f"🦟 Dengue Risk Score: **{result['risk_score']:.2f}**")
         if result["predicted_class"] == "Stagnant Water":
