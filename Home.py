@@ -12,10 +12,8 @@ st.set_page_config(
 st.sidebar.title("About")
 st.sidebar.info("""
 **UN SDG 3 — Good Health and Well-being**  
-This app aims to predict and prevent outbreaks of infectious diseases in vulnerable communities using AI and geospatial technologies.
+This application utilizes AI and geospatial technologies to predict and prevent dengue outbreaks, offering actionable insights to safeguard vulnerable communities.
 """)
-logo = "https://i.imgur.com/UbOXYAU.png"  # Replace with your logo URL
-st.sidebar.image(logo, use_container_width=True)
 
 # Page title and introduction
 st.title("🌍 AI-Driven Dengue Prevention System")
