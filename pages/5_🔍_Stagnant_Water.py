@@ -2,11 +2,11 @@ import streamlit as st
 import streamlit.components.v1 as components
 import json  # Import the json module
 
-# Define class labels
+# Define class labels (ensure this matches the order in Teachable Machine)
 class_labels = {
-    0: "No Stagnant Water",
-    1: "Stagnant Water - Low Risk",
-    2: "Stagnant Water - High Risk"
+    0: "Stagnant Water",  # First class in Teachable Machine
+    1: "Flowing Water",   # Second class in Teachable Machine
+    2: "Dry Land"         # Third class in Teachable Machine
 }
 
 # Teachable Machine TensorFlow.js Integration with File Upload
@@ -104,7 +104,7 @@ def teachable_machine_component(class_labels):
                 console.log(`Predicted Class: ${{className}}, Confidence: ${{confidence}}`);
 
                 // Determine if stagnant water is detected
-                const hasStagnantWater = predictedClass === 1 || predictedClass === 2;
+                const hasStagnantWater = predictedClass === 0; // Class 0 is Stagnant Water
 
                 // Display the results
                 const labelContainer = document.getElementById("label-container");
