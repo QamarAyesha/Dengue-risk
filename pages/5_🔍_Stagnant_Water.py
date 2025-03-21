@@ -96,12 +96,14 @@ def teachable_machine_component():
                     `;
 
                     // Send results back to Streamlit
-                    if (window.Streamlit) {
+                    if (window.Streamlit && window.Streamlit.setComponentValue) {
                         window.Streamlit.setComponentValue({
                             predicted_class: predictedClass,
                             confidence: confidence,
                             has_stagnant_water: confidence > 0.5
                         });
+                    } else {
+                        console.error("Streamlit API not available.");
                     }
 
                     console.log("Predictions completed!");
