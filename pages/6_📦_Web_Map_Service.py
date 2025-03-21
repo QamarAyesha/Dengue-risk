@@ -2,7 +2,7 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-st.title("Dengue Prevention and Awareness")
+st.title("Guidelines")
 
 # Introduction
 st.markdown(
@@ -28,14 +28,19 @@ with col1:
     for tip in tips:
         st.write(f"✔️ {tip}")
 
-# Symptom Checker Section
-    st.header("🤒 Symptom Checker")
-    symptoms = st.multiselect(
-        "Select any symptoms you are experiencing:",
-        ["Fever", "Headache", "Muscle Pain", "Fatigue", "Skin Rash", "Nausea"]
-    )
-    if symptoms:
-        st.write("⚠️ If you are experiencing multiple symptoms, consider seeking medical advice.")
+# symptom checkker
+st.header("🩺 Symptom Checker")
+symptoms = ["Fever", "Headache", "Muscle Pain", "Fatigue", "Nausea", "Skin Rash"]
+selected_symptoms = st.multiselect("Select your symptoms", symptoms)
+
+if selected_symptoms:
+    st.write("Based on your symptoms, it is recommended to:")
+    if "Fever" in selected_symptoms and "Muscle Pain" in selected_symptoms:
+        st.write("- Stay hydrated and monitor your temperature.")
+        st.write("- Consult a healthcare provider if the fever persists.")
+    else:
+        st.write("- Rest, drink fluids, and monitor symptoms.")
+        st.write("- Seek medical advice if symptoms worsen.")
 
 # Myth Buster Section with Accordion UI
 with col2:
