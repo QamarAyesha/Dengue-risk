@@ -5,7 +5,7 @@ import plotly.express as px
 # Page Config
 st.set_page_config(page_title='Fumigation Progress', page_icon='🦟', layout='wide')
 
-st.title('🦟 Fumigation Progress Overview')
+st.title('🦟 Fumigation Progress')
 
 # Load Data (Sample Data)
 data = pd.DataFrame({
