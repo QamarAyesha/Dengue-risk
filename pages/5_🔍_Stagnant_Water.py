@@ -89,6 +89,10 @@ def teachable_machine_component(class_labels):
                 const prediction = await model.predict(tensor);
                 console.log("Raw predictions:", prediction);
 
+                // Log the probabilities for each class
+                const probabilities = await prediction.data();
+                console.log("Probabilities:", probabilities);
+
                 // Get the predicted class
                 const predictedClass = tf.argMax(prediction, 1).dataSync()[0];
                 const confidence = tf.max(prediction).dataSync()[0];
