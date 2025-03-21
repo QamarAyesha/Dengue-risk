@@ -16,28 +16,22 @@ data = pd.DataFrame({
     'Estimated Completion (Days)': [5, 12, 15, 8, 3]
 })
 
-# Layout
-col1, col2 = st.columns([1, 2])
+# City Selector
+selected_city = st.selectbox('Select a city to view progress:', data['City'])
 
-# City Selector and Details
-with col1:
-    selected_city = st.selectbox('Select a city to view progress', data['City'])
-    city_data = data[data['City'] == selected_city]
-
-    # Display City Progress with improved formatting
-    st.markdown(f"### {selected_city}")
-    st.metric(label='Fumigation Progress', value=f"{city_data['Progress (%)'].values[0]}%")
-    st.write(f"**Estimated Completion:** {city_data['Estimated Completion (Days)'].values[0]} days")
+# Display City Progress
+city_data = data[data['City'] == selected_city]
+st.metric(label='Fumigation Progress', value=f"{city_data['Progress (%)'].values[0]}%")
+st.write(f"Estimated Completion: {city_data['Estimated Completion (Days)'].values[0]} days")
 
 # Map Visualization
-with col2:
-    st.write("### City Progress Overview")
-    fig = px.scatter_mapbox(
-        data, lat='Latitude', lon='Longitude', size='Progress (%)',
-        color='Progress (%)', hover_name='City', zoom=5,
-        mapbox_style='carto-positron', color_continuous_scale='Blues'
-    )
-    st.plotly_chart(fig, use_container_width=True)
+st.write("### City Progress Overview")
+fig = px.scatter_mapbox(
+    data, lat='Latitude', lon='Longitude', size='Progress (%)',
+    color='Progress (%)', hover_name='City', zoom=5,
+    mapbox_style='carto-positron', color_continuous_scale='Blues'
+)
+st.plotly_chart(fig, use_container_width=True)
 
 # Progress Timeline with Clearer Visualization
 st.write("### Estimated Fumigation Progress Over Time")
