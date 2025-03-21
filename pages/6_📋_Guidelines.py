@@ -30,12 +30,12 @@ with col1:
             }
         
             ul {
-            margin: 0;
-            padding-left: 20px;
+                margin: 0;
+                padding-left: 20px;
             }
         
             li {
-            margin-bottom: 10px;
+                margin-bottom: 10px;
             }
         </style>
     """, unsafe_allow_html=True)
@@ -56,17 +56,18 @@ with col1:
             </ul>
         </div>
     """, unsafe_allow_html=True)
-        # symptom checkker
-        st.header("🩺 Symptom Checker")
-        symptoms = ["Fever", "Headache", "Muscle Pain", "Fatigue", "Nausea", "Skin Rash"]
-        selected_symptoms = st.multiselect("Select your symptoms", symptoms)
+    
+    # Symptom checker
+    st.header("🩺 Symptom Checker")
+    symptoms = ["Fever", "Headache", "Muscle Pain", "Fatigue", "Nausea", "Skin Rash"]
+    selected_symptoms = st.multiselect("Select your symptoms", symptoms)
 
-        if selected_symptoms:
+    if selected_symptoms:
         st.write("Based on your symptoms, it is recommended to:")
-            if "Fever" in selected_symptoms and "Muscle Pain" in selected_symptoms:
+        if "Fever" in selected_symptoms and "Muscle Pain" in selected_symptoms:
             st.write("- Stay hydrated and monitor your temperature.")
             st.write("- Consult a healthcare provider if the fever persists.")
-            else:
+        else:
             st.write("- Rest, drink fluids, and monitor symptoms.")
             st.write("- Seek medical advice if symptoms worsen.")
 
@@ -92,7 +93,7 @@ with col2:
     with st.expander("Myth: Mosquitoes only bite during the night."):
         st.write("Reality: Aedes mosquitoes are most active during early morning and late afternoon.")
 
-
 # Footer
 st.write("Stay informed, stay safe!")
+
 
