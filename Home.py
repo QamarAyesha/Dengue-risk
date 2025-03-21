@@ -22,47 +22,41 @@ st.markdown("""
 This app leverages **AI-driven predictive analytics** and **geospatial technologies** to identify, forecast, and mitigate the risks of infectious disease outbreaks, such as dengue, malaria, and chikungunya, in vulnerable regions.
 """)
 
-# Define pages with their thumbnails and descriptions
+# Define pages with their descriptions
 pages = [
     {
         "title": "Dengue Risk Map",
         "path": "/Dengue_Risk_Map",
-        "thumbnail": "images/dengue_risk_map.png",  # Local image path
         "description": "Analyze dengue risk with a heatmap."
     },
     {
         "title": "Fumigation Progress",
         "path": "/Fumigation_Progress",
-        "thumbnail": "images/fumigation_progress.png",  # Local image path
         "description": "Displays progress of fumigation by government staff."
     },
     {
         "title": "Reported Cases",
         "path": "/Reported_Cases",
-        "thumbnail": "images/reported_cases.png",  # Local image path
         "description": "Visualize historically reported cases."
     },
     {
         "title": "Environmental Factors",
         "path": "/Environmental_Factors",
-        "thumbnail": "images/environmental_factors.png",  # Local image path
         "description": "Analyze weather and environmental risks."
     },
     {
         "title": "Stagnant Water",
         "path": "/Stagnant_Water",
-        "thumbnail": "images/stagnant_water.png",  # Local image path
         "description": "Satellite-based analysis of stagnant water and associated risk."
     },
     {
         "title": "Guidelines",
         "path": "/Guidelines",
-        "thumbnail": "images/guidelines.png",  # Local image path
         "description": "Prevention and Awareness."
     }
 ]
 
-# Cards with Page Thumbnails in Multi-Column Layout
+# Cards with Page Descriptions in Multi-Column Layout
 st.header("Explore the App")
 
 # Add custom CSS for card styling
@@ -84,18 +78,13 @@ st.markdown("""
     flex: 1 1 calc(33.333% - 20px);  /* Three cards per row with spacing */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;  /* Center content vertically */
     align-items: center;  /* Center content horizontally */
-    min-height: 300px;  /* Ensure all cards have the same height */
+    min-height: 150px;  /* Ensure all cards have the same height */
 }
 .card:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-.card img {
-    width: 100%;
-    border-radius: 5px;
-    margin-bottom: 15px;
 }
 .card h3 {
     font-size: 1.25rem;
@@ -117,7 +106,6 @@ for page in pages:
     st.markdown(f"""
     <a href="{page['path']}" target="_self" style="text-decoration: none; color: inherit;">
         <div class="card">
-            <img src="{page['thumbnail']}" alt="{page['title']}">
             <h3>{page['title']}</h3>
             <p>{page['description']}</p>
         </div>
