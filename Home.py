@@ -27,48 +27,53 @@ pages = [
     {
         "title": "Dengue Risk Map",
         "path": "/Dengue_Risk_Map",
-        "thumbnail": "https://via.placeholder.com/300x150.png?text=Interactive+Map",
-        "description": "Enalyze dangue risk with a heatmapta."
+        "thumbnail": "images/maps_12785933(1).png",  # Local image path
+        "description": "Analyze dengue risk with a heatmap."
     },
     {
         "title": "Fumigation Progress",
-        "path": "/Fumigation Progress",
-        "thumbnail": "https://via.placeholder.com/300x150.png?text=Split+Map",
-        "description": "Displays progress of fumigation by government staff"
+        "path": "/Fumigation_Progress",
+        "thumbnail": "images/business_15843486.png",  # Local image path
+        "description": "Displays progress of fumigation by government staff."
     },
     {
         "title": "Reported Cases",
         "path": "/Reported_Cases",
-        "thumbnail": "https://via.placeholder.com/300x150.png?text=Marker+Cluster",
+        "thumbnail": "images/megaphone_6808568.png",  # Local image path
         "description": "Visualize historically reported cases."
     },
     {
         "title": "Environmental Factors",
         "path": "/Environmental_Factors",
-        "thumbnail": "https://via.placeholder.com/300x150.png?text=Heatmap",
+        "thumbnail": "images/environmental_factors.png",  # Local image path
         "description": "Analyze weather and environmental risks."
     },
     {
         "title": "Stagnant Water",
         "path": "/Stagnant_Water",
-        "thumbnail": "https://via.placeholder.com/300x150.png?text=Basemaps",
-        "description": "Seatlite based analysis of stagnant water and associated risk."
+        "thumbnail": "images/stagnant_water.png",  # Local image path
+        "description": "Satellite-based analysis of stagnant water and associated risk."
     },
     {
         "title": "Guidelines",
         "path": "/Guidelines",
-        "thumbnail": "https://via.placeholder.com/300x150.png?text=Web+Map+Service",
-        "description": "Prevention and Awairness"
+        "thumbnail": "images/guidelines.png",  # Local image path
+        "description": "Prevention and Awareness."
     }
 ]
 
 # Cards with Page Thumbnails in Multi-Column Layout
 st.header("Explore the App")
-cols = st.columns(4)  # Adjust the number of columns as needed
 
 # Add custom CSS for card styling
 st.markdown("""
 <style>
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;  /* Space between cards */
+    justify-content: space-between;
+}
 .card {
     border: 1px solid #e1e4e8;
     border-radius: 10px;
@@ -76,10 +81,12 @@ st.markdown("""
     text-align: center;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
     transition: transform 0.2s, box-shadow 0.2s;
-    height: 100%;  /* Ensure all cards have the same height */
+    flex: 1 1 calc(33.333% - 20px);  /* Three cards per row with spacing */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;  /* Center content horizontally */
+    min-height: 300px;  /* Ensure all cards have the same height */
 }
 .card:hover {
     transform: translateY(-5px);
@@ -102,45 +109,46 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+# Create a container for the cards
+st.markdown('<div class="card-container">', unsafe_allow_html=True)
+
 # Loop through pages and create cards
-for i, page in enumerate(pages):
-    with cols[i % 4]:  # Distribute cards across 4 columns
-        st.markdown(f"""
-        <a href="{page['path']}" target="_self" style="text-decoration: none; color: inherit;">
-            <div class="card">
-                <img src="{page['thumbnail']}" alt="{page['title']}">
-                <h3>{page['title']}</h3>
-                <p>{page['description']}</p>
-            </div>
-        </a>
-        """, unsafe_allow_html=True)
+for page in pages:
+    st.markdown(f"""
+    <a href="{page['path']}" target="_self" style="text-decoration: none; color: inherit;">
+        <div class="card">
+            <img src="{page['thumbnail']}" alt="{page['title']}">
+            <h3>{page['title']}</h3>
+            <p>{page['description']}</p>
+        </div>
+    </a>
+    """, unsafe_allow_html=True)
 
+# Close the container
+st.markdown('</div>', unsafe_allow_html=True)
 
-
-import streamlit as st
-
-# Custom CSS to add a slightly darker translucent blue background and ensure equal column sizes
+# Custom CSS for key feature boxes
 st.markdown("""
-    <style>
-        .key-feature-box {
-            background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
-            padding: 20px;
-            border-radius: 10px;
-            min-height: 200px;  /* Ensures each box has the same height */
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        ul {
-            margin: 0;
-            padding-left: 20px;
-        }
-        
-        li {
-            margin-bottom: 10px;
-        }
-    </style>
+<style>
+.key-feature-box {
+    background-color: rgba(70, 130, 180, 0.5); /* darker blue with some opacity */
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 200px;  /* Ensures each box has the same height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 10px;
+}
+</style>
 """, unsafe_allow_html=True)
 
 # Key Features section
@@ -180,16 +188,12 @@ with col3:
         </div>
     """, unsafe_allow_html=True)
 
-
-
-
 # Call-to-action section
 st.header("Get Started")
 st.markdown("""
 Explore the tools and features of this app to understand how AI and geospatial technologies can help prevent infectious disease outbreaks.  
 👇 **Select a page from the sidebar** or click on the cards above to get started!
 """)
-
 
 # Footer
 st.markdown("---")
