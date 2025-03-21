@@ -40,17 +40,17 @@ st.write("### Estimated Fumigation Progress Over Time")
 estimated_completion_days = city_data['Estimated Completion (Days)'].values[0]
 initial_progress = city_data['Progress (%)'].values[0] / 100  # Normalize to [0, 1]
 
-# Create timeline data
 timeline_data = pd.DataFrame({
     'Day': range(1, estimated_completion_days + 1),
-    'Progress (%)': [initial_progress] * estimated_completion_days  # Keep progress constant
+    'Progress (%)': [initial_progress * (day / estimated_completion_days) for day in range(1, estimated_completion_days + 1)]
 })
+
 
 # Plotting the timeline with fixed progress
 fig_timeline = px.line(
     timeline_data, x='Day', y='Progress (%)',
     title=f'Progress Timeline for {selected_city}',
-    markers=True, line_shape='linear'
+    markers=True, line_shape='spline'  # Smooth curve
 )
 
 # Format the Y-axis to show percentage format
@@ -61,12 +61,7 @@ fig_timeline.update_layout(
     )
 )
 
-timeline_data = pd.DataFrame({
-    'Day': range(1, estimated_completion_days + 1),
-    'Progress (%)': [initial_progress * (day / estimated_completion_days) for day in range(1, estimated_completion_days + 1)]
-})
 
-line_shape='spline'  # Smooth curve
 
 fig_timeline.add_annotation(
     x=estimated_completion_days, y=initial_progress,
