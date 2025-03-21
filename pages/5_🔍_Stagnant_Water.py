@@ -21,6 +21,15 @@ def teachable_machine_component():
             async function init() {
                 try {
                     console.log("Loading model...");
+                    console.log("Model URL:", modelURL);
+
+                    // Fetch the model.json file to check if it's accessible
+                    const response = await fetch(modelURL);
+                    if (!response.ok) {
+                        throw new Error(`Failed to fetch model.json: ${response.status} ${response.statusText}`);
+                    }
+
+                    // Load the model
                     model = await tf.loadLayersModel(modelURL);
                     console.log("Model loaded successfully!");
 
