@@ -96,8 +96,8 @@ def teachable_machine_component():
                     `;
 
                     // Send results back to Streamlit
-                    if (window.Streamlit && window.Streamlit.setComponentValue) {
-                        window.Streamlit.setComponentValue({
+                    if (typeof Streamlit !== "undefined" && Streamlit.setComponentValue) {
+                        Streamlit.setComponentValue({
                             predicted_class: predictedClass,
                             confidence: confidence,
                             has_stagnant_water: confidence > 0.5
