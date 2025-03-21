@@ -7,14 +7,14 @@ if "last_results" not in st.session_state:
     st.session_state.last_results = [
         {
             "file_name": "default_image_1.jpg",
-            "location": "Gulberg, Lahore",
+            "location": "Gulberg, Lahore",  # Add location to default results
             "predicted_class": "No Stagnant Water",
             "confidence": 0.85,
             "risk_score": 15
         },
         {
             "file_name": "default_image_2.jpg",
-            "location": "Johar Town, Lahore",
+            "location": "Johar Town, Lahore",  # Add location to default results
             "predicted_class": "Stagnant Water",
             "confidence": 0.92,
             "risk_score": 75
@@ -83,7 +83,7 @@ def main():
             # Store results
             results.append({
                 "file_name": uploaded_file.name,
-                "location": location,
+                "location": location,  # Ensure location is included
                 "predicted_class": predicted_class,
                 "confidence": confidence,
                 "risk_score": risk_score
@@ -104,7 +104,7 @@ def main():
     st.subheader("Last Results")
     for result in st.session_state.last_results:
         st.write(f"📄 **File Name**: {result['file_name']}")
-        st.write(f"📍 **Location**: {result['location']}")
+        st.write(f"📍 **Location**: {result['location']}")  # Ensure location exists
         st.write(f"🎉 Predicted Class (placeholder): **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
         st.write(f"🦟 Dengue Risk Score (placeholder): **{result['risk_score']}**")
         if result["predicted_class"] == "Stagnant Water":
