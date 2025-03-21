@@ -82,14 +82,24 @@ def teachable_machine_component():
                 try {
                     console.log("Predicting...");
                     const prediction = await model.predict(image);
-                    console.log("Predictions:", prediction);
+                    console.log("Raw predictions:", prediction);
 
                     const labelContainer = document.getElementById("label-container");
                     labelContainer.innerHTML = ""; // Clear previous results
 
+                    let hasStagnantWater = false;
+                    let maxConfidence = 0;
+                    let predictedClass = "";
+
                     for (let i = 0; i < maxPredictions; i++) {
                         const className = prediction[i].className;
                         const probability = prediction[i].probability.toFixed(2);
+
+                        // Track the class with the highest confidence
+                        if (probability > maxConfidence) {
+                            maxConfidence = probability;
+                            predictedClass = className;
+                        }
 
                         // Create a result div
                         const resultDiv = document.createElement("div");
@@ -110,6 +120,7 @@ def teachable_machine_component():
 
                         // Highlight high-risk predictions
                         if (className === "Stagnant Water" && probability > 0.5) {
+                            hasStagnantWater = true;
                             resultDiv.style.backgroundColor = "var(--background-color)";
                             resultDiv.style.color = "var(--text-color)";
                             resultDiv.style.padding = "5px";
@@ -125,6 +136,16 @@ def teachable_machine_component():
 
                         labelContainer.appendChild(resultDiv);
                     }
+
+                    // Send results back to Streamlit
+                    if (window.Streamlit) {
+                        window.Streamlit.setComponentValue({
+                            predicted_class: predictedClass,
+                            confidence: maxConfidence,
+                            has_stagnant_water: hasStagnantWater
+                        });
+                    }
+
                     console.log("Predictions completed!");
                 } catch (error) {
                     console.error("Error making predictions:", error);
@@ -147,7 +168,7 @@ def teachable_machine_component():
             }
         </style>
         """,
-        height=400,
+        height=500,
     )
 
 # Calculate risk score
@@ -176,8 +197,17 @@ def main():
 
     # Add Teachable Machine Component
     st.subheader("Teachable Machine Model")
-    teachable_machine_component()
-  
+    result = teachable_machine_component()
+
+    # Display predictions dynamically
+    if result:
+        st.subheader("Prediction Results")
+        st.write(f"🎉 Predicted Class: **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
+        if result["has_stagnant_water"]:
+            st.error("⚠️ Stagnant water detected! This is a potential dengue breeding site. Please take action.")
+        else:
+            st.success("✅ No stagnant water detected. Low dengue risk.")
+
     # Display last results or default results if no new files are uploaded
     st.subheader("Sample Results")
     for result in st.session_state.last_results:
