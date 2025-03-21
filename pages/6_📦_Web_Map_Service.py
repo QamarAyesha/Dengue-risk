@@ -1,79 +1,51 @@
-import ast
 import streamlit as st
-import leafmap.foliumap as leafmap
 
 st.set_page_config(layout="wide")
+st.title("Dengue Prevention and Awareness")
 
-markdown = """
-A Streamlit map template
-<https://github.com/opengeos/streamlit-map-template>
-"""
-
-st.sidebar.title("About")
-st.sidebar.info(markdown)
-logo = "https://i.imgur.com/UbOXYAU.png"
-st.sidebar.image(logo)
-
-
-@st.cache_data
-def get_layers(url):
-    options = leafmap.get_wms_layers(url)
-    return options
-
-
-st.title("Web Map Service (WMS)")
 st.markdown(
     """
-This app is a demonstration of loading Web Map Service (WMS) layers. Simply enter the URL of the WMS service
-in the text box below and press Enter to retrieve the layers. Go to https://apps.nationalmap.gov/services to find
-some WMS URLs if needed.
-"""
+    Learn how to protect yourself and your community from dengue. Explore preventive measures, identify symptoms, and uncover the facts.
+    """
 )
 
-row1_col1, row1_col2 = st.columns([3, 1.3])
-width = None
-height = 600
-layers = None
+# Symptom Checker
+st.header("🩺 Symptom Checker")
+symptoms = ["Fever", "Headache", "Muscle Pain", "Fatigue", "Nausea", "Skin Rash"]
+selected_symptoms = st.multiselect("Select your symptoms", symptoms)
 
-with row1_col2:
+if selected_symptoms:
+    st.write("Based on your symptoms, it is recommended to:")
+    if "Fever" in selected_symptoms and "Muscle Pain" in selected_symptoms:
+        st.write("- Stay hydrated and monitor your temperature.")
+        st.write("- Consult a healthcare provider if the fever persists.")
+    else:
+        st.write("- Rest, drink fluids, and monitor symptoms.")
+        st.write("- Seek medical advice if symptoms worsen.")
 
-    esa_landcover = "https://services.terrascope.be/wms/v2"
-    url = st.text_input(
-        "Enter a WMS URL:", value="https://services.terrascope.be/wms/v2"
-    )
-    empty = st.empty()
+# Preventive Tips
+st.header("🛡️ Preventive Measures")
+tips_category = st.radio("Choose a category to get tips:", ["At Home", "Outdoors", "Community Action"])
 
-    if url:
-        options = get_layers(url)
+if tips_category == "At Home":
+    st.write("- Empty standing water from containers.")
+    st.write("- Keep windows and doors closed or use screens.")
+elif tips_category == "Outdoors":
+    st.write("- Wear long-sleeved clothing.")
+    st.write("- Apply mosquito repellent.")
+elif tips_category == "Community Action":
+    st.write("- Organize cleanup drives to remove mosquito breeding sites.")
+    st.write("- Encourage proper waste management.")
 
-        default = None
-        if url == esa_landcover:
-            default = "WORLDCOVER_2020_MAP"
-        layers = empty.multiselect(
-            "Select WMS layers to add to the map:", options, default=default
-        )
-        add_legend = st.checkbox("Add a legend to the map", value=True)
-        if default == "WORLDCOVER_2020_MAP":
-            legend = str(leafmap.builtin_legends["ESA_WorldCover"])
-        else:
-            legend = ""
-        if add_legend:
-            legend_text = st.text_area(
-                "Enter a legend as a dictionary {label: color}",
-                value=legend,
-                height=200,
-            )
+# Myth Buster
+st.header("❗ Myth Buster")
+myths = {
+    "Dengue only spreads in dirty water": "Mosquitoes can breed in clean, stagnant water.",
+    "Only rural areas are at risk": "Urban areas with poor drainage are also prone to dengue outbreaks.",
+    "Dengue is contagious between people": "Dengue spreads through mosquito bites, not person-to-person contact."
+}
 
-    with row1_col1:
-        m = leafmap.Map(center=(36.3, 0), zoom=2)
+selected_myth = st.selectbox("Select a myth to uncover the fact:", list(myths.keys()))
+st.write(f"**Fact:** {myths[selected_myth]}")
 
-        if layers is not None:
-            for layer in layers:
-                m.add_wms_layer(
-                    url, layers=layer, name=layer, attribution=" ", transparent=True
-                )
-        if add_legend and legend_text:
-            legend_dict = ast.literal_eval(legend_text)
-            m.add_legend(legend_dict=legend_dict)
-
-        m.to_streamlit(width, height)
+st.write("Stay informed and stay safe!")
