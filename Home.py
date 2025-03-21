@@ -73,7 +73,7 @@ st.markdown("""
     flex-direction: column;
     justify-content: center;  /* Center content vertically */
     align-items: center;  /* Center content horizontally */
-    min-height: 175px;  /* Ensure all cards have the same height */
+    min-height: 160px;  /* Ensure all cards have the same height */
 }
 .card:hover {
     transform: translateY(-5px);
@@ -89,7 +89,7 @@ st.markdown("""
     margin: 0;
 }
 .row-spacing {
-    margin-bottom: 40px;  /* Increase space between rows */
+    margin-bottom: 60px;  /* Increase space between rows */
 }
 </style>
 """, unsafe_allow_html=True)
