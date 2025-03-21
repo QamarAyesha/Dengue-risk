@@ -44,21 +44,19 @@ with col1:
     m.to_streamlit(height=700)
 
 with col2:
+
     # Color key explanation using gradient bar
     st.markdown(
         """
         **Color Key Explanation:**
-        <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 30px; border-radius: 8px; margin-top: 20px;">
-        </div>
-        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 300px;">
-            <span style="color: #0000FF;">Very Low Risk</span>
-            <span style="color: #00FF00;">Minimal Risk</span>
-            <span style="color: #FFFF00;">Low Risk</span>
-            <span style="color: #FFA500;">Moderate Risk</span>
-            <span style="color: #FF0000;">High Risk</span>
+        <div style="background: linear-gradient(to bottom, #0000FF, #00FF00, #FFFF00, #FFA500, #FF0000); height: 300px; width: 30px; border-radius: 8px; margin-top: 20px;"></div>
+        <div style="display: flex; flex-direction: column; justify-content: space-between; height: 300px; font-family: Arial, sans-serif; font-size: 10px;">
+            <span>Low</span>
+            <span>High</span>
         </div>
         """,
         unsafe_allow_html=True
+    )
     )
 
 
