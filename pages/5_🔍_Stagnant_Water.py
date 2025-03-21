@@ -7,12 +7,14 @@ if "last_results" not in st.session_state:
     st.session_state.last_results = [
         {
             "file_name": "default_image_1.jpg",
+            "location": "Gulberg, Lahore",
             "predicted_class": "No Stagnant Water",
             "confidence": 0.85,
             "risk_score": 15
         },
         {
             "file_name": "default_image_2.jpg",
+            "location": "Johar Town, Lahore",
             "predicted_class": "Stagnant Water",
             "confidence": 0.92,
             "risk_score": 75
@@ -43,6 +45,17 @@ def main():
     model_path = "model/model.json"  # Replace with the path to your model later
     model = load_model(model_path)
 
+    # Location selection (Lahore neighborhoods)
+    st.subheader("Select Location in Lahore")
+    location = st.selectbox(
+        "Choose a neighborhood in Lahore",
+        [
+            "Gulberg", "Defence", "Model Town", "Johar Town", "Faisal Town",
+            "Cantt", "Iqbal Town", "Garden Town", "Wapda Town", "DHA"
+        ],  # Add more neighborhoods as needed
+        index=0  # Default to Gulberg
+    )
+
     # File uploader for multiple satellite images
     uploaded_files = st.file_uploader(
         "Upload satellite images...", 
@@ -70,12 +83,14 @@ def main():
             # Store results
             results.append({
                 "file_name": uploaded_file.name,
+                "location": location,
                 "predicted_class": predicted_class,
                 "confidence": confidence,
                 "risk_score": risk_score
             })
 
             # Display results for the current file
+            st.write(f"📍 **Location**: {location}")
             st.write(f"🎉 Predicted Class (placeholder): **{predicted_class}** with {confidence:.2f} confidence!")
             st.write(f"🦟 Dengue Risk Score (placeholder): **{risk_score}**")
             if predicted_class == "Stagnant Water":
@@ -89,6 +104,7 @@ def main():
     st.subheader("Last Results")
     for result in st.session_state.last_results:
         st.write(f"📄 **File Name**: {result['file_name']}")
+        st.write(f"📍 **Location**: {result['location']}")
         st.write(f"🎉 Predicted Class (placeholder): **{result['predicted_class']}** with {result['confidence']:.2f} confidence!")
         st.write(f"🦟 Dengue Risk Score (placeholder): **{result['risk_score']}**")
         if result["predicted_class"] == "Stagnant Water":
