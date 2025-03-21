@@ -7,14 +7,14 @@ if "last_results" not in st.session_state:
     st.session_state.last_results = [
         {
             "file_name": "default_image_1.jpg",
-            "city": "Lahore",  # Updated to use city instead of location
+            "city": "Lahore",  
             "predicted_class": "No Stagnant Water",
             "confidence": 0.85,
             "risk_score": 15
         },
         {
             "file_name": "default_image_2.jpg",
-            "city": "Karachi",  # Updated to use city instead of location
+            "city": "Karachi",  
             "predicted_class": "Stagnant Water",
             "confidence": 0.92,
             "risk_score": 75
@@ -39,7 +39,7 @@ def predict(model, image):
 # Streamlit page
 def main():
     st.set_page_config(page_title="Satellite Image Analysis for Dengue Risk", layout="wide")
-    st.title("🌍 Satellite Image Analysis for Dengue Risk")
+    st.title("Satellite Image Analysis for Dengue Risk")
     st.write("Upload or select satellite images to detect stagnant water spots.")
 
     # Placeholder for model path
