@@ -1,4 +1,4 @@
-# 🦟 AI-Driven Dengue Prevention System Ecosystem
+# 🦟 AI-Driven Dengue Prevention System 
 
 ## Our proposed solution
 Our solution is an AI driven dengue prevention system that provides real time dengue risk assessment based on environmental data and satellite-based stagnant water detection. By identifying high-risk areas, authorities can allocate resources efficiently and implement preventive measures. Our web app includes a Fumigation tracker which allows mapping and monitoring of fumigation activities in real-time ensuring systematic mosquito control. Our platform also educates users regarding preventive measures, symptoms and common  to empower communities in the fight against dengue.
